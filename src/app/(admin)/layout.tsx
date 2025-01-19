@@ -1,4 +1,4 @@
-
+import { SidebarM } from '@/components/shared/sidebar/SidebarM';
 import React from 'react';
 
 const layout = ({
@@ -7,9 +7,9 @@ const layout = ({
     children: React.ReactNode;
 }>) => {
     return (
-     
+        <SidebarM>
             {children}
-       
+        </SidebarM>
     );
 };
 
