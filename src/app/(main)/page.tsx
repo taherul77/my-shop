@@ -1,9 +1,13 @@
+import { Button } from '@/components/ui/button'
 import React from 'react'
 
 const MainPage = () => {
   return (
     <div >
-      hi
+      <Button
+        color="primary"
+        variant="default"
+       >hi</Button>
     </div>
   )
 }
