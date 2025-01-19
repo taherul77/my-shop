@@ -2,15 +2,37 @@
 import FormSubmitButton from "@/components/shared/FormSubmitButton";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { schema } from "./Schema";
 import Input from "@/components/shared/Input";
+import Select from "@/components/shared/Select"; // Assuming you have a Select component
 
 interface AddCategoryProps {
   modalClose: () => void;
 }
 
 const AddCategory: React.FC<AddCategoryProps> = ({ modalClose }) => {
+  interface Category {
+    id: number;
+    name: string;
+  }
+
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/api/category');
+        const data = await response.json();
+        setCategories(data);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
   const {
     control,
     register,
@@ -26,9 +48,15 @@ const AddCategory: React.FC<AddCategoryProps> = ({ modalClose }) => {
   interface FormData {
     name: string;
     title: string;
+    parentId?: number;
   }
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
+   
+    if (data.parentId) {
+      data.parentId = Number(data.parentId);
+    }
+
     try {
       const response = await fetch('http://localhost:3000/api/category', {
         method: 'POST',
@@ -41,8 +69,8 @@ const AddCategory: React.FC<AddCategoryProps> = ({ modalClose }) => {
       if (response.ok) {
         const result = await response.json();
         console.log('Category added:', result);
-        modalClose(); // Close the modal on success
-        reset(); // Reset the form
+        modalClose(); 
+        reset();
       } else {
         console.error('Failed to add category:', response.statusText);
       }
@@ -52,7 +80,7 @@ const AddCategory: React.FC<AddCategoryProps> = ({ modalClose }) => {
   };
 
   const onError = (errors: Record<string, unknown>) => {
-    // handle form errors
+  
     console.error(errors);
   };
 
@@ -82,9 +110,21 @@ const AddCategory: React.FC<AddCategoryProps> = ({ modalClose }) => {
             register={register}
             error={errors.title}
           />
+
+          <Select
+            label="Parent Category"
+            name="parentId"
+            register={register}
+            error={errors.parentId}
+            options={categories.map((category) => ({
+              value: category.id,
+              label: category.name,
+            }))}
+            placeholder="Select parent category (optional)"
+          />
         </div>
         <FormSubmitButton
-          status="idle" // Replace with the correct status if available
+          status="idle" 
           buttonName="Add Category"
           context="Adding"
         />
