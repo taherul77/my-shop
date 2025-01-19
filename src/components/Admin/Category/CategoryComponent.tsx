@@ -31,9 +31,9 @@ const CategoryComponent = () => {
   const columns: ColumnDef<any>[] = [
     {
       header: "Sl No",
-      accessorFn: (_row, index) => index + 1, // Generate serial number
+      accessorFn: (_row, index) => index + 1, 
       cell: ({ row }) => (
-        <div>{row.index + 1}</div> // Display the 1-based index
+        <div>{row.index + 1}</div> 
       ),
     },
     {
@@ -78,28 +78,7 @@ const CategoryComponent = () => {
         const data = row.original;
         return (
           <>
-            {/* <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="h-8 w-8 p-0">
-                  <span className="sr-only">Open menu</span>
-                  <MoreHorizontal />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="bg-backgroundColor">
-                <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                <DropdownMenuItem className="hover:bg-brandColor hover:text-white cursor-pointer"
-                  onClick={() => {
-                    setViewModalOpen(true)
-                  }}
-                >
-                  View
-                </DropdownMenuItem>
-                <DropdownMenuItem className="hover:bg-brandColor hover:text-white cursor-pointer" onClick={() => {
-                  setEditModalOpen(true)
-                  dispatch(handleEditData(data))
-                }}>Edit</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu> */}
+            
             <button
               className="bg-primary hover:bg-brandColor px-4 py-2 rounded-md text-white "
               onClick={() => {
