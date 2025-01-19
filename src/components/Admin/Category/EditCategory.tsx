@@ -1,6 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react'
 
-const EditCategory = ({ modalClose }) => {
+interface EditCategoryProps {
+  modalClose: () => void;
+}
+
+const EditCategory: React.FC<EditCategoryProps> = ({ modalClose }) => {
   return (
     <div>
       sadds

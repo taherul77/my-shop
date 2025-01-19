@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import FormSubmitButton from "@/components/shared/FormSubmitButton";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -5,7 +6,11 @@ import React from "react";
 import { schema } from "./Schema";
 import Input from "@/components/shared/Input";
 
-const AddCategory = ({ modalClose }) => {
+interface AddCategoryProps {
+  modalClose: () => void;
+}
+
+const AddCategory: React.FC<AddCategoryProps> = ({ modalClose }) => {
   const {
     control,
     register,
