@@ -1,9 +1,10 @@
+import CategoryComponent from '@/components/Admin/Category/CategoryComponent'
 import React from 'react'
 
 const CategoryPage = () => {
   return (
     <div>
-      hi
+      <CategoryComponent />
     </div>
   )
 }
