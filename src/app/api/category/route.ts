@@ -7,10 +7,12 @@ export async function POST(request: NextRequest) {
 
   try {
     if (body.parentId) {
+      // Create a subcategory
       const newSubCategory = await prisma.subCategory.create({
         data: {
           name: body.name,
           title: body.title,
+          status: body.status || 'ACTIVE',
           categoryId: body.parentId,
         },
       });
@@ -21,6 +23,7 @@ export async function POST(request: NextRequest) {
         data: {
           name: body.name,
           title: body.title,
+          status: body.status || 'ACTIVE',
         },
       });
       return NextResponse.json(newCategory, { status: 201 });

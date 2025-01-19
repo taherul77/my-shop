@@ -13,6 +13,7 @@ export async function POST(request: NextRequest) {
         price: body.price,
         categoryId: body.categoryId,
         subCategoryId: body.subCategoryId || null,
+        status: body.status || 'ACTIVE',
       },
     });
     return NextResponse.json(newProduct, { status: 201 });
