@@ -5,7 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useEffect, useState } from "react";
 import { schema } from "./Schema";
 import Input from "@/components/shared/Input";
-import Select from "@/components/shared/Select"; // Assuming you have a Select component
+import Select from "@/components/shared/Select";
 
 interface AddCategoryProps {
   modalClose: () => void;
