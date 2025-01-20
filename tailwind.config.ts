@@ -23,7 +23,7 @@ const config = {
   				DEFAULT: 'hsl(var(--primary))',
   				foreground: 'hsl(var(--primary-foreground))'
   			},
-  			brandColor: '#E84538',
+  			brandColor: '#4d0000',
   			brandColorSecondary: '#010202',
   			brandColorLs: '#0A0A0A',
   			brandColorHover: '#212424',

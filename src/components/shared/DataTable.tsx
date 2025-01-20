@@ -83,7 +83,7 @@ export function DataTable<TData>({ data, columns, searchFieldName, tableName, se
           />
         </div>
         <div className="col-span-1 flex justify-center items-center">
-          <p className="text-3xl font-semibold text-brandColor">{tableName}</p>
+          <p className="text-3xl  font-semibold text-brandColor">{tableName}</p>
         </div>
         <div className="col-span-1 flex items-center justify-end gap-2">
           <button onClick={() => setAddModalOpen(true)} className="px-3 py-1 rounded bg-primary hover:bg-brandColor text-2xl text-white">

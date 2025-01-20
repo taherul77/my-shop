@@ -1,5 +1,5 @@
 'use client'
-import store from "@/redux/Store/store";
+import { store } from "@/redux/Store/store";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Provider } from "react-redux";
 const WrapProviders = ({

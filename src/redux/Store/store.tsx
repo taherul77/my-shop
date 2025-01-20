@@ -1,10 +1,18 @@
-import { configureStore } from "@reduxjs/toolkit";
-import MainReducer from "../Reducer/MainSlice";
+import { configureStore } from '@reduxjs/toolkit';
+import mainReducer from '../Reducer/MainSlice';
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
-    Initial: MainReducer,
+    main: mainReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredPaths: ['main.editData'], 
+        ignoredActions: ['main/handleEditData'],
+      },
+    }),
 });
 
-export default store;
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

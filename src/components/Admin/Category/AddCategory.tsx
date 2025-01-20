@@ -5,10 +5,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useEffect, useState } from "react";
 import { schema } from "./Schema";
 import Input from "@/components/shared/Input";
-import Select from "@/components/shared/Select";
+import Select from "@/components/shared/Select"; // Assuming you have a Select component
+
 
 interface AddCategoryProps {
-  modalClose: () => void;
+
+  modalClose: (open: boolean) => void;
+
 }
 
 const AddCategory: React.FC<AddCategoryProps> = ({ modalClose }) => {
@@ -16,10 +19,11 @@ const AddCategory: React.FC<AddCategoryProps> = ({ modalClose }) => {
     id: number;
     name: string;
   }
-
+  
   const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
+    // Fetch categories to populate the select field
     const fetchCategories = async () => {
       try {
         const response = await fetch('http://localhost:3000/api/category');
@@ -52,7 +56,7 @@ const AddCategory: React.FC<AddCategoryProps> = ({ modalClose }) => {
   }
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
-   
+    // Convert parentId to a number if it exists
     if (data.parentId) {
       data.parentId = Number(data.parentId);
     }
@@ -80,7 +84,7 @@ const AddCategory: React.FC<AddCategoryProps> = ({ modalClose }) => {
   };
 
   const onError = (errors: Record<string, unknown>) => {
-  
+    // handle form errors
     console.error(errors);
   };
 
@@ -124,7 +128,7 @@ const AddCategory: React.FC<AddCategoryProps> = ({ modalClose }) => {
           />
         </div>
         <FormSubmitButton
-          status="idle" 
+          status="idle"
           buttonName="Add Category"
           context="Adding"
         />
