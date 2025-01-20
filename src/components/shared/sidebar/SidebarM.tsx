@@ -8,7 +8,8 @@ import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
 import { TbBrandDatabricks } from "react-icons/tb";
 import { BiCategoryAlt } from "react-icons/bi";
 import { IoIosColorPalette } from "react-icons/io";
-import { FaHourglassEnd } from "react-icons/fa";
+import { FaHourglassEnd, FaChevronDown, FaAngleUp } from "react-icons/fa";
+import { ImMenu3 } from "react-icons/im";
 import {
   MdOutlineInstallDesktop,
   MdOutlineProductionQuantityLimits,
@@ -26,54 +27,69 @@ export function SidebarM({ children }: { children: React.ReactNode }) {
     {
       label: "Brand",
       href: "/admin/brand",
-      icon: <TbBrandDatabricks className=" h-5 w-5 flex-shrink-0" />,
+      icon: <TbBrandDatabricks className="h-5 w-5 flex-shrink-0" />,
     },
     {
-      label: "Category",
-      href: "/admin/category",
-      icon: <BiCategoryAlt className=" h-5 w-5 flex-shrink-0" />,
+      label: "Menu",
+      href: "#",
+      icon: <ImMenu3 className="h-5 w-5 flex-shrink-0" />,
+      subLinks: [
+        {
+          label: "Category",
+          href: "/admin/category",
+        },
+        {
+          label: "Sub Category",
+          href: "/admin/subCategory",
+        },
+      ],
     },
     {
       label: "Color",
       href: "/admin/color",
-      icon: <IoIosColorPalette className=" h-5 w-5 flex-shrink-0" />,
+      icon: <IoIosColorPalette className="h-5 w-5 flex-shrink-0" />,
     },
     {
       label: "Finish",
       href: "/admin/finish",
-      icon: <FaHourglassEnd className=" h-5 w-5 flex-shrink-0" />,
+      icon: <FaHourglassEnd className="h-5 w-5 flex-shrink-0" />,
     },
     {
       label: "Installation Type",
       href: "/admin/installation-type",
-      icon: <MdOutlineInstallDesktop className=" h-5 w-5 flex-shrink-0" />,
+      icon: <MdOutlineInstallDesktop className="h-5 w-5 flex-shrink-0" />,
     },
     {
       label: "Material",
       href: "/admin/material",
-      icon: <GiMaterialsScience className=" h-5 w-5 flex-shrink-0" />,
+      icon: <GiMaterialsScience className="h-5 w-5 flex-shrink-0" />,
     },
     {
       label: "Styles",
       href: "/admin/style",
-      icon: <MdOutlineStyle className=" h-5 w-5 flex-shrink-0" />,
+      icon: <MdOutlineStyle className="h-5 w-5 flex-shrink-0" />,
     },
     {
       label: "Product ",
       href: "/admin/product",
       icon: (
-        <MdOutlineProductionQuantityLimits className=" h-5 w-5 flex-shrink-0" />
+        <MdOutlineProductionQuantityLimits className="h-5 w-5 flex-shrink-0" />
       ),
     },
     {
       label: "Logout",
       href: "#",
-      icon: <FiLogOut className=" h-5 w-5 flex-shrink-0" />,
+      icon: <FiLogOut className="h-5 w-5 flex-shrink-0" />,
     },
   ];
 
   const [open, setOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const pathName = usePathname();
+
+  // Set "Menu" active if either "Category" or "Sub Category" is active
+  const isMenuActive =
+    pathName === "/admin/category" || pathName === "/admin/subCategory";
 
   return (
     <div
@@ -87,13 +103,55 @@ export function SidebarM({ children }: { children: React.ReactNode }) {
             {open ? <Logo /> : <LogoIcon />}
             <div className="mt-8 flex flex-col gap-2">
               {links.map((link, idx) => (
-                <SidebarLink
-                  key={idx}
-                  link={link}
-                  className={`hover:text-brandColor text-black ${
-                    pathName === link.href && "text-brandColor"
-                  }`}
-                />
+                <div key={idx}>
+                  {/* If the link has subLinks, render a dropdown */}
+                  {link.subLinks ? (
+                    <div>
+                      <SidebarLink
+                        link={{
+                          label: link.label,
+                          href: link.href,
+                          icon: link.icon,
+                        }}
+                        className={`hover:text-brandColor text-black ${
+                          isMenuActive ? "text-brandColor" : ""
+                        }`}
+                        onClick={() => setMenuOpen(!menuOpen)}
+                      />
+                      {/* Right side icon toggle */}
+                      {/* <span
+                        className={`ml-2 text-black transform ${
+                          menuOpen ? "rotate-180" : ""
+                        }`}
+                      >
+                        {menuOpen ? (
+                          <FaAngleUp className="h-4 w-4" />
+                        ) : (
+                          <FaChevronDown className="h-4 w-4" />
+                        )}
+                      </span> */}
+                      {/* Submenu items */}
+                      {menuOpen &&
+                        link.subLinks.map((subLink, subIdx) => (
+                          <SidebarLink
+                            key={subIdx}
+                            link={subLink}
+                            className={`ml-4 hover:text-brandColor text-black ${
+                              pathName === subLink.href && "text-brandColor"
+                            }`}
+                          />
+                        ))}
+                    </div>
+                  ) : (
+                    <SidebarLink
+                      key={idx}
+                      link={link}
+                      className={`hover:text-brandColor text-black ${
+                        pathName === link.href && "text-brandColor"
+                      }`}
+                    />
+                  )}
+                </div>
               ))}
             </div>
           </div>
