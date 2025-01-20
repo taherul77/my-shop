@@ -16,8 +16,18 @@ import { handleEditData } from "@/redux/Reducer/MainSlice";
 import AddProduct from "./AddProduct";
 import EditProduct from "./EditProduct";
 
+interface ProductData {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  status: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
 interface Props {
-  data: any;
+  data: ProductData[];
 }
 
 const ProductComponent = ({ data }: Props) => {
@@ -25,7 +35,7 @@ const ProductComponent = ({ data }: Props) => {
 
   const dispatch = useDispatch();
 
-  const columns: ColumnDef<any>[] = [
+  const columns: ColumnDef<ProductData>[] = [
     {
       header: "Sl No",
       accessorFn: (_row, index) => index + 1,
@@ -116,7 +126,17 @@ const ProductComponent = ({ data }: Props) => {
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [dataToDelete, setDataToDelete] = useState<any>(null); // Store the data to delete
+  interface ProductData {
+    id: string;
+    name: string;
+    description: string;
+    price: number;
+    status: boolean;
+    createdAt?: string;
+    updatedAt?: string;
+  }
+
+  const [dataToDelete, setDataToDelete] = useState<ProductData | null>(null); 
 
   const handleDelete = async () => {
     if (dataToDelete) {
@@ -183,7 +203,7 @@ const ProductComponent = ({ data }: Props) => {
 
       {/* Delete Confirmation Modal */}
       <Dialog open={deleteModalOpen} onOpenChange={setDeleteModalOpen}>
-        <DialogContent className="bg-white w-[50vw]">
+        <DialogContent className="bg-white w-[50vw] ">
           <DialogTitle>Delete Product</DialogTitle>
           <DialogDescription>
             Are you sure you want to delete this product?

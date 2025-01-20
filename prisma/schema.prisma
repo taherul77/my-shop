@@ -13,38 +13,39 @@ enum Status {
 }
 
 model Product {
-  id            Int         @id @default(autoincrement())
+  id            Int          @id @default(autoincrement())
   name          String
   description   String?
   price         Float
   categoryId    Int
-  category      Category    @relation(fields: [categoryId], references: [id])
+  category      Category     @relation(fields: [categoryId], references: [id])
   subCategoryId Int?
   subCategory   SubCategory? @relation(fields: [subCategoryId], references: [id])
-  status        Status      @default(ACTIVE)
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
+  imagePath     String       @default("default-image.jpg") 
+  status    Status   @default(ACTIVE)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Category {
-  id            Int          @id @default(autoincrement())
-  name          String       @db.VarChar(255)
-  title         String?      @db.VarChar(255)
-  status        Status       @default(ACTIVE)
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
+  id            Int           @id @default(autoincrement())
+  name          String        @db.VarChar(255)
+  title         String?       @db.VarChar(255)
+  status        Status        @default(ACTIVE)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
   products      Product[]
   subcategories SubCategory[]
 }
 
 model SubCategory {
-  id          Int        @id @default(autoincrement())
-  name        String     @db.VarChar(255)
-  title       String?    @db.VarChar(255)
-  status      Status     @default(ACTIVE)
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  categoryId  Int
-  category    Category   @relation(fields: [categoryId], references: [id])
-  products    Product[]
+  id         Int       @id @default(autoincrement())
+  name       String    @db.VarChar(255)
+  title      String?   @db.VarChar(255)
+  status     Status    @default(ACTIVE)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  categoryId Int
+  category   Category  @relation(fields: [categoryId], references: [id])
+  products   Product[]
 }
