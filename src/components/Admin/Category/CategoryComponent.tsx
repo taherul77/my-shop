@@ -17,7 +17,7 @@ import { useDispatch } from "react-redux";
 import { handleEditData } from "@/redux/Reducer/MainSlice";
 import AddCategory from "./AddCategory";
 import EditCategory from "./EditCategory";
-
+import { BiEdit, BiTrash } from "react-icons/bi";
 interface CategoryComponentProps {
   data: any;
 }
@@ -68,28 +68,39 @@ const CategoryComponent = ({ data }: CategoryComponentProps) => {
     },
     {
       id: "actions",
-      enableHiding: false,
+      header: "Actions",
       cell: ({ row }) => {
         const data = row.original;
         return (
-          <button
-            className="bg-primary hover:bg-brandColor px-4 py-2 rounded-md text-white"
-            onClick={() => {
-              setEditModalOpen(true);
-              const serializableData = {
-                ...data,
-                createdAt: data.createdAt
-                  ? new Date(data.createdAt).toISOString()
-                  : null, 
-                updatedAt: data.updatedAt
-                  ? new Date(data.updatedAt).toISOString()
-                  : null, 
-              };
-              dispatch(handleEditData(serializableData));
-            }}
-          >
-            Edit
-          </button>
+          <>
+            <button
+              className="hover:text-brandColor rounded-md text-black"
+              onClick={() => {
+                setEditModalOpen(true);
+                const serializableData = {
+                  ...data,
+                  createdAt: data.createdAt
+                    ? new Date(data.createdAt).toISOString()
+                    : null,
+                  updatedAt: data.updatedAt
+                    ? new Date(data.updatedAt).toISOString()
+                    : null,
+                };
+                dispatch(handleEditData(serializableData));
+              }}
+            >
+              <BiEdit size={21} />
+            </button>
+            <button
+              className="hover:text-red-500 px-4 py-2 rounded-md text-black ml-2"
+              onClick={() => {
+                setDeleteModalOpen(true);
+                setDataToDelete(data);
+              }}
+            >
+              <BiTrash size={21} />
+            </button>
+          </>
         );
       },
     },
@@ -97,6 +108,36 @@ const CategoryComponent = ({ data }: CategoryComponentProps) => {
 
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [dataToDelete, setDataToDelete] = useState<any>(null);
+
+  const handleDelete = async () => {
+    if (dataToDelete) {
+      try {
+        const payload = {
+          id: dataToDelete.id,
+        isSubCategory: false
+        };
+        const response = await fetch("http://localhost:3000/api/category", {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        });
+
+        if (response.ok) {
+          console.log("Deleted successfully");
+        } else {
+          console.error("Failed to delete:", await response.text());
+        }
+      } catch (error) {
+        console.error("Error during deletion:", error);
+      }
+
+      setDeleteModalOpen(false);
+    }
+  };
 
   return (
     <div>
@@ -104,7 +145,7 @@ const CategoryComponent = ({ data }: CategoryComponentProps) => {
         data={data}
         columns={columns}
         searchFieldName={"name"}
-        tableName="All Category"
+        tableName="All Sub Category"
         setAddModalOpen={setAddModalOpen}
       />
       <Dialog open={addModalOpen} onOpenChange={setAddModalOpen}>
@@ -125,6 +166,32 @@ const CategoryComponent = ({ data }: CategoryComponentProps) => {
           </DialogTitle>
           <DialogHeader>
             <EditCategory modalClose={setEditModalOpen} />
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
+
+
+      <Dialog open={deleteModalOpen} onOpenChange={setDeleteModalOpen}>
+        <DialogContent className="bg-white w-[50vw]">
+          <DialogTitle>Delete Category</DialogTitle>
+          <DialogDescription>
+            Are you sure you want to delete this category?
+          </DialogDescription>
+          <DialogHeader>
+            <div className="flex justify-between">
+              <button
+                className="px-4 py-2 bg-gray-300 rounded-md"
+                onClick={() => setDeleteModalOpen(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="px-4 py-2 bg-red-500 text-white rounded-md"
+                onClick={handleDelete}
+              >
+                Confirm
+              </button>
+            </div>
           </DialogHeader>
         </DialogContent>
       </Dialog>

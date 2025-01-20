@@ -6,7 +6,7 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
 import { TbBrandDatabricks } from "react-icons/tb";
-import { BiCategoryAlt } from "react-icons/bi";
+import { BiCategoryAlt,BiSolidCategory } from "react-icons/bi";
 import { IoIosColorPalette } from "react-icons/io";
 import { FaHourglassEnd, FaChevronDown, FaAngleUp } from "react-icons/fa";
 
@@ -43,7 +43,7 @@ export function SidebarM({ children }: { children: React.ReactNode }) {
         {
           label: "Sub Category",
           href: "/admin/subCategory",
-          icon: <BiCategoryAlt className="h-5 w-5 flex-shrink-0" />,
+          icon: <BiSolidCategory className="h-5 w-5 flex-shrink-0" />,
         },
       ],
     },

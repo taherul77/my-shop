@@ -87,3 +87,31 @@ export async function PATCH(request: NextRequest) {
     return NextResponse.json({ error: error instanceof Error ? error.message : 'Error updating category or subcategory' }, { status: 500 });
   }
 }
+
+export async function DELETE(request: NextRequest) {
+  const { id, isSubCategory } = await request.json();
+  console.log(`Deleting ${isSubCategory ? 'SubCategory' : 'Category'} with id: ${id}`);
+
+  try {
+    if (!id) {
+      return NextResponse.json({ error: 'ID is required for deletion' }, { status: 400 });
+    }
+
+    if (isSubCategory) {
+      // Delete a subcategory
+      const deletedSubCategory = await prisma.subCategory.delete({
+        where: { id },
+      });
+      return NextResponse.json(deletedSubCategory, { status: 200 });
+    } else {
+      // Delete a category
+      const deletedCategory = await prisma.category.delete({
+        where: { id },
+      });
+      return NextResponse.json(deletedCategory, { status: 200 });
+    }
+  } catch (error) {
+    console.error('Error deleting category or subcategory:', error);
+    return NextResponse.json({ error: error instanceof Error ? error.message : 'Error deleting category or subcategory' }, { status: 500 });
+  }
+}

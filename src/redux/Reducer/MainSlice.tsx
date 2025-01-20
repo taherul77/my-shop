@@ -3,11 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 interface MainState {
 	add: boolean;
 	editData: any;
+	deleteData: any;
 }
 
 const initialState: MainState = {
 	add: false,
-	editData: {}
+	editData: {},
+	deleteData: {}
 };
 
 export const MainSlice = createSlice({
@@ -20,10 +22,13 @@ export const MainSlice = createSlice({
 		handleEditData: (state, action) => {
 			state.editData = action.payload;
 		},
+		handleDeleteData: (state, action) => {
+			state.deleteData = action.payload;
+		}
 	},
 });
 
-export const { handleAddModalOpen, handleEditData } = MainSlice.actions;
+export const { handleAddModalOpen, handleEditData ,handleDeleteData } = MainSlice.actions;
 
 export default MainSlice.reducer;
 

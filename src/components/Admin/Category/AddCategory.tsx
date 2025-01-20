@@ -23,7 +23,7 @@ const AddCategory: React.FC<AddCategoryProps> = ({ modalClose }) => {
   const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
-    // Fetch categories to populate the select field
+ 
     const fetchCategories = async () => {
       try {
         const response = await fetch('http://localhost:3000/api/category');
@@ -56,7 +56,7 @@ const AddCategory: React.FC<AddCategoryProps> = ({ modalClose }) => {
   }
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
-    // Convert parentId to a number if it exists
+
     if (data.parentId) {
       data.parentId = Number(data.parentId);
     }

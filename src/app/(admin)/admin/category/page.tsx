@@ -1,24 +1,15 @@
-import CategoryComponent from '@/components/Admin/Category/CategoryComponent'
-import React from 'react'
-import { prisma } from '../../../../../prisma/client'
+import CategoryComponent from "@/components/Admin/Category/CategoryComponent";
+import React from "react";
+import { prisma } from "../../../../../prisma/client";
 
 const CategoryPage = async () => {
-
-  const data = await prisma.category.findMany({
-    include: {
-      subcategories: true,
-     
-      }
-    })
-
-
-
+  const data = await prisma.category.findMany();
 
   return (
     <div>
       <CategoryComponent data={data} />
     </div>
-  )
-}
+  );
+};
 
-export default CategoryPage
+export default CategoryPage;
