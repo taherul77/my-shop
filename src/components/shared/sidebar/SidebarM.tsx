@@ -100,7 +100,7 @@ export function SidebarM({ children }: { children: React.ReactNode }) {
           <div>
             <SidebarLink
               link={{
-                label: "My Kitchen",
+                label: "My Shop",
                 href: "#",
                 icon: (
                   <Image
