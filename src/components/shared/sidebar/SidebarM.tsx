@@ -52,26 +52,9 @@ export function SidebarM({ children }: { children: React.ReactNode }) {
       href: "/admin/color",
       icon: <IoIosColorPalette className="h-5 w-5 flex-shrink-0" />,
     },
-    {
-      label: "Finish",
-      href: "/admin/finish",
-      icon: <FaHourglassEnd className="h-5 w-5 flex-shrink-0" />,
-    },
-    {
-      label: "Installation Type",
-      href: "/admin/installation-type",
-      icon: <MdOutlineInstallDesktop className="h-5 w-5 flex-shrink-0" />,
-    },
-    {
-      label: "Material",
-      href: "/admin/material",
-      icon: <GiMaterialsScience className="h-5 w-5 flex-shrink-0" />,
-    },
-    {
-      label: "Styles",
-      href: "/admin/style",
-      icon: <MdOutlineStyle className="h-5 w-5 flex-shrink-0" />,
-    },
+
+ 
+
     {
       label: "Product ",
       href: "/admin/product",

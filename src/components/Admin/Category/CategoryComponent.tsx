@@ -145,7 +145,7 @@ const CategoryComponent = ({ data }: CategoryComponentProps) => {
         data={data}
         columns={columns}
         searchFieldName={"name"}
-        tableName="All Sub Category"
+        tableName="All Category"
         setAddModalOpen={setAddModalOpen}
       />
       <Dialog open={addModalOpen} onOpenChange={setAddModalOpen}>

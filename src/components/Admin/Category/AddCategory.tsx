@@ -20,22 +20,7 @@ const AddCategory: React.FC<AddCategoryProps> = ({ modalClose }) => {
     name: string;
   }
   
-  const [categories, setCategories] = useState<Category[]>([]);
-
-  useEffect(() => {
  
-    const fetchCategories = async () => {
-      try {
-        const response = await fetch('http://localhost:3000/api/category');
-        const data = await response.json();
-        setCategories(data);
-      } catch (error) {
-        console.error('Error fetching categories:', error);
-      }
-    };
-
-    fetchCategories();
-  }, []);
 
   const {
     control,
@@ -115,17 +100,7 @@ const AddCategory: React.FC<AddCategoryProps> = ({ modalClose }) => {
             error={errors.title}
           />
 
-          <Select
-            label="Parent Category"
-            name="parentId"
-            register={register}
-            error={errors.parentId}
-            options={categories.map((category) => ({
-              value: category.id,
-              label: category.name,
-            }))}
-            placeholder="Select parent category (optional)"
-          />
+       
         </div>
         <FormSubmitButton
           status="idle"
