@@ -9,7 +9,8 @@ import { TbBrandDatabricks } from "react-icons/tb";
 import { BiCategoryAlt } from "react-icons/bi";
 import { IoIosColorPalette } from "react-icons/io";
 import { FaHourglassEnd, FaChevronDown, FaAngleUp } from "react-icons/fa";
-import { ImMenu3 } from "react-icons/im";
+
+import { RiMenuUnfoldFill } from "react-icons/ri";
 import {
   MdOutlineInstallDesktop,
   MdOutlineProductionQuantityLimits,
@@ -32,15 +33,17 @@ export function SidebarM({ children }: { children: React.ReactNode }) {
     {
       label: "Menu",
       href: "#",
-      icon: <ImMenu3 className="h-5 w-5 flex-shrink-0" />,
+      icon: <RiMenuUnfoldFill className="h-5 w-5 flex-shrink-0" />,
       subLinks: [
         {
           label: "Category",
           href: "/admin/category",
+          icon: <BiCategoryAlt className="h-5 w-5 flex-shrink-0" />,
         },
         {
           label: "Sub Category",
           href: "/admin/subCategory",
+          icon: <BiCategoryAlt className="h-5 w-5 flex-shrink-0" />,
         },
       ],
     },
