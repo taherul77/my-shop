@@ -21,7 +21,7 @@ model Product {
   category      Category     @relation(fields: [categoryId], references: [id])
   subCategoryId Int?
   subCategory   SubCategory? @relation(fields: [subCategoryId], references: [id])
-  imagePath     String       @default("default-image.jpg") 
+  imagePath     String       @default("https://res.cloudinary.com/dkvqtc5pb/image/upload/v1737433308/products/1737433306032-taherul.PNG.png") 
   status    Status   @default(ACTIVE)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

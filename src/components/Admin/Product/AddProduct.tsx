@@ -24,8 +24,15 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
     status: string;
     image: FileList;
   }
-  
-  const { control, register, handleSubmit, watch, reset, formState: { errors } } = useForm<ProductFormData>({
+
+  const {
+    control,
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    formState: { errors },
+  } = useForm<ProductFormData>({
     resolver: yupResolver(productSchema),
   });
 
@@ -68,66 +75,92 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
 
   const onSubmit: SubmitHandler<ProductFormData> = async (data) => {
     setLoading(true);
-    
+
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("description", data.description);
     formData.append("price", data.price.toString());
     formData.append("categoryId", data.categoryId.toString());
-    if (data.subCategoryId) formData.append("subCategoryId", data.subCategoryId.toString());
+    if (data.subCategoryId)
+      formData.append("subCategoryId", data.subCategoryId.toString());
     formData.append("status", data.status);
-    
-    // Append image if selected
-    const imageFile = data.image[0]; // Assuming a file input with name 'image'
+
+    const imageFile = data.image[0];
     if (imageFile) {
       formData.append("image", imageFile);
     }
 
-    // Debugging logs
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
-    }
-
     try {
-      const response = await fetch("http://localhost:3000/api/product", {
+      const response = await fetch("/api/product", {
         method: "POST",
         body: formData,
       });
 
       if (response.ok) {
         const result = await response.json();
-        console.log("Product added:", result);
+        console.log("Product added successfully:", result);
         modalClose(false);
         reset();
       } else {
-        const errorText = await response.text();
-        console.error(`Failed to add product. Status: ${response.status}, Error: ${errorText}`);
+        console.error("Failed to add product. Status:", response.status);
       }
     } catch (error) {
-      console.error("Error adding product:", error);
+      console.error("Error submitting form:", error);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="container mx-auto px-3 mt-5 space-y-4">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="container mx-auto px-3 mt-5 space-y-4"
+    >
       <h2 className="text-xl font-semibold text-primary">Add New Product</h2>
       <div className="grid grid-cols-1 gap-5">
-        <Input label="Product Name" name="name" type="text" placeholder="Enter product name" register={register} error={errors.name} required />
-        <Input label="Description" name="description" type="text" placeholder="Enter product description" register={register} error={errors.description} />
-        <Input label="Price" name="price" type="number" placeholder="Enter product price" register={register} error={errors.price} required />
+        <Input
+          label="Product Name"
+          name="name"
+          type="text"
+          placeholder="Enter product name"
+          register={register}
+          error={errors.name}
+          required
+        />
+        <Input
+          label="Description"
+          name="description"
+          type="text"
+          placeholder="Enter product description"
+          register={register}
+          error={errors.description}
+        />
+        <Input
+          label="Price"
+          name="price"
+          type="number"
+          placeholder="Enter product price"
+          register={register}
+          error={errors.price}
+          required
+        />
         <Select
           label="Category"
           name="categoryId"
           register={register}
-          options={categories.map((category) => ({ value: category.id, label: category.name }))}
+          options={categories.map((category) => ({
+            value: category.id,
+            label: category.name,
+          }))}
         />
         <Select
           label="Sub-Category"
           name="subCategoryId"
           register={register}
-          options={subCategories.map((subCategory) => ({ value: subCategory.id, label: subCategory.name }))}
+          options={subCategories.map((subCategory) => ({
+            value: subCategory.id,
+            label: subCategory.name,
+          }))}
         />
         <Select
           label="Status"
@@ -140,7 +173,11 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
         />
         <input type="file" accept="image/*" {...register("image")} />
       </div>
-      <FormSubmitButton status={loading ? "loading" : "idle"} buttonName="Add Product" context="addProduct" />
+      <FormSubmitButton
+        status={loading ? "loading" : "idle"}
+        buttonName="Add Product"
+        context="addProduct"
+      />
     </form>
   );
 };

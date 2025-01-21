@@ -9,6 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import Image from "next/image";
 import { BiEdit, BiTrash } from "react-icons/bi";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { useDispatch } from "react-redux";
@@ -22,6 +23,7 @@ interface ProductData {
   description: string;
   price: number;
   status: boolean;
+  imagePath?: string; // Add this line
   createdAt?: string;
   updatedAt?: string;
 }
@@ -31,7 +33,6 @@ interface Props {
 }
 
 const ProductComponent = ({ data }: Props) => {
-  console.log(data);
 
   const dispatch = useDispatch();
 
@@ -63,6 +64,28 @@ const ProductComponent = ({ data }: Props) => {
       ),
     },
     {
+      accessorKey: "imagePath",
+      header: "Image",
+      cell: ({ row }) => {
+        const imagePath = row.getValue("imagePath");
+        return (
+          <div className="flex items-center">
+            {imagePath ? (
+              <Image
+                src={imagePath as string}
+                alt="Product"
+                width={64}
+                height={64}
+                className="object-cover rounded-md"
+              />
+            ) : (
+              <span>No Image</span>
+            )}
+          </div>
+        );
+      },
+    },
+    {
       accessorKey: "status",
       header: "Status",
       cell: ({ row }) => {
@@ -89,7 +112,7 @@ const ProductComponent = ({ data }: Props) => {
       cell: ({ row }) => {
         const data = row.original;
         return (
-          <>
+          <div className="flex justify-start items-center">
             <button
               className="hover:text-brandColor rounded-md text-black"
               onClick={() => {
@@ -117,7 +140,7 @@ const ProductComponent = ({ data }: Props) => {
             >
               <BiTrash size={21} />
             </button>
-          </>
+          </div>
         );
       },
     },
