@@ -36,7 +36,7 @@ const EditCategory: React.FC<EditCategoryProps> = ({ modalClose }) => {
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     try {
-      const response = await fetch("http://localhost:3000/api/category", {
+      const response = await fetch("/api/category", {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

@@ -106,25 +106,46 @@ export async function POST(req: Request) {
 
 
 
+export async function DELETE(request: NextRequest) {
+  const { id } = await request.json();
+ 
 
-// Handle Product Deletion (DELETE)
-export async function DELETE(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { id } = req.query;
-
     if (!id) {
-      return res.status(400).json({ message: "Product ID is required" });
+      return NextResponse.json({ error: 'ID is required for deletion' }, { status: 400 });
     }
 
-    await prisma.product.delete({
-      where: { id: parseInt(id as string, 10) },
-    });
-
-    res.status(200).json({
-      message: "Product deleted successfully",
-    });
-  } catch (error) {
-    console.error("Error deleting product:", error);
-    res.status(500).json({ message: "Internal server error" });
+   
+      const deletedProduct = await prisma.product.delete({
+        where: { id },
+      });
+      return NextResponse.json(deletedProduct, { status: 200 });
+    }
+   catch (error) {
+    console.error('Error deleting category or subcategory:', error);
+    return NextResponse.json({ error: error instanceof Error ? error.message : 'Error deleting category or subcategory' }, { status: 500 });
   }
 }
+
+
+// // Handle Product Deletion (DELETE)
+// export async function DELETE(req: NextApiRequest, res: NextApiResponse) {
+//   try {
+//     const { id } = req.query;
+
+//     if (!id) {
+//       return res.status(400).json({ message: "Product ID is required" });
+//     }
+
+//     await prisma.product.delete({
+//       where: { id: parseInt(id as string, 10) },
+//     });
+
+//     res.status(200).json({
+//       message: "Product deleted successfully",
+//     });
+//   } catch (error) {
+//     console.error("Error deleting product:", error);
+//     res.status(500).json({ message: "Internal server error" });
+//   }
+// }

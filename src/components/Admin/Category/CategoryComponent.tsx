@@ -118,7 +118,7 @@ const CategoryComponent = ({ data }: CategoryComponentProps) => {
           id: dataToDelete.id,
         isSubCategory: false
         };
-        const response = await fetch("http://localhost:3000/api/category", {
+        const response = await fetch("/api/category", {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",

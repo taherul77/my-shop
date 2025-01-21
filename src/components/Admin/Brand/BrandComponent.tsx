@@ -166,7 +166,7 @@ const BrandComponent = ({data}:Props) => {
         };
 
         // Make DELETE request
-        const response = await fetch("http://localhost:3000/api/product", {
+        const response = await fetch("http://localhost:3000/api/brand", {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
@@ -185,7 +185,7 @@ const BrandComponent = ({data}:Props) => {
         console.error("Error during deletion:", error);
       }
 
-      setDeleteModalOpen(false); // Close the modal after deleting
+      setDeleteModalOpen(false);
     }
   };
 

@@ -86,3 +86,40 @@ export async function POST(req: Request) {
     );
   }
 }
+
+export async function DELETE(req: Request) {
+  const { id } = await req.json();
+
+  if (!id) {
+    return NextResponse.json({ error: "ID is required" }, { status: 400 });
+  }
+
+  try {
+    // Delete the brand
+    const deletedBrand = await prisma.brand.delete({
+      where: { id: parseInt(id, 10) },
+    });
+
+    return NextResponse.json({
+      message: "Brand deleted successfully",
+      result: deletedBrand,
+    });
+  } catch (error) {
+    console.error("Error deleting brand:", error);
+    return NextResponse.json(
+      { message: "Internal server error", result: null },
+      { status: 500 }
+    );
+  }
+}
+
+// Handle other HTTP methods
+export default function handler(req: Request) {
+  if (req.method === 'POST') {
+    return POST(req);
+  } else if (req.method === 'DELETE') {
+    return DELETE(req);
+  } else {
+    return NextResponse.json({ error: `Method ${req.method} Not Allowed` }, { status: 405 });
+  }
+}

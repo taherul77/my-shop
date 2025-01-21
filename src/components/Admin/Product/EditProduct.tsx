@@ -97,7 +97,7 @@ const EditProduct: React.FC<EditProductProps> = ({ modalClose }) => {
     const fetchSubCategories = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/category/${selectedCategoryId}/subcategories`
+          `/api/category/${selectedCategoryId}/subcategories`
         );
         const data = await response.json();
         setSubCategories(data);

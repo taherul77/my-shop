@@ -26,7 +26,7 @@ const AddCategory: React.FC<AddCategoryProps> = ({ modalClose }) => {
  
     const fetchCategories = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/category');
+        const response = await fetch('/api/category');
         const data = await response.json();
         setCategories(data);
       } catch (error) {

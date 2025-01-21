@@ -47,7 +47,7 @@ const AddCategory: React.FC<AddCategoryProps> = ({ modalClose }) => {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/api/category', {
+      const response = await fetch('/api/category', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

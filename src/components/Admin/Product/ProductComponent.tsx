@@ -166,11 +166,10 @@ const ProductComponent = ({ data }: Props) => {
       try {
         const payload = {
           id: dataToDelete.id,
-          isSubCategory: true, // Adjust this flag based on your data
         };
 
         // Make DELETE request
-        const response = await fetch("http://localhost:3000/api/product", {
+        const response = await fetch("/api/product", {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
