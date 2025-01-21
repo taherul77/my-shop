@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextResponse,NextRequest } from "next/server";
 import cloudinary from "../../../lib/cloudinaryConfig";
 import { prisma } from "../../../../prisma/client";
 import multer from "multer";
 import { Readable } from "stream";
-
+type Status = "ACTIVE" | "INACTIVE" ; 
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 const uploadMiddleware = upload.single("image");
@@ -48,7 +50,7 @@ export async function POST(req: Request) {
     const formData = await req.formData();
     const name = formData.get("name") as string;
     const title = formData.get("title") as string;
-    const status = formData.get("status") || "ACTIVE";
+    const status = formData.get("status") as Status || "ACTIVE";
     const file = formData.get("image") as File | null;
 
     if (!name) {
@@ -69,7 +71,7 @@ export async function POST(req: Request) {
       data: {
         name,
         title,
-        status: status.toString(),
+        status: status,
         image: imagePath,
       },
     });

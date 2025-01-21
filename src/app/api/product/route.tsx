@@ -1,4 +1,7 @@
-import { NextResponse } from "next/server";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { NextResponse, NextRequest } from "next/server";
+
+type Status = "ACTIVE" | "INACTIVE" ; 
 import cloudinary from "../../../lib/cloudinaryConfig";
 import { prisma } from "../../../../prisma/client";
 import multer from "multer";
@@ -58,7 +61,7 @@ export async function POST(req: Request) {
     const subCategoryId = formData.get("subCategoryId")
       ? parseInt(formData.get("subCategoryId") as string, 10)
       : null;
-    const status = formData.get("status") || "ACTIVE";
+    const status = formData.get("status") as Status || "ACTIVE";
     const file = formData.get("image") as File | null;
     const brandId = parseInt(formData.get("brandId") as string, 10);
 
@@ -86,7 +89,7 @@ export async function POST(req: Request) {
         price,
         categoryId,
         subCategoryId,
-        status: status.toString(),
+        status,
         imagePath,
         brandId
       },

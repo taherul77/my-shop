@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextResponse } from "next/server";
 import cloudinary from "../../../../lib/cloudinaryConfig";
 import { prisma } from "../../../../../prisma/client";
@@ -10,7 +11,7 @@ const uploadMiddleware = upload.single("image");
 
 export const config = {
   api: {
-    bodyParser: false, // Disable body parsing for file uploads
+    bodyParser: false, 
   },
 };
 
