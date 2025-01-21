@@ -57,6 +57,7 @@ model Brand {
   name      String    @db.VarChar(255)
   title     String?   @db.VarChar(255)
   status    Status    @default(ACTIVE)
+  image     String?   @default("https://res.cloudinary.com/dkvqtc5pb/image/upload/v1737433308/products/1737433306032-taherul.PNG.png")
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   products  Product[]
