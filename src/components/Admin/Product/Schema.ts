@@ -19,4 +19,6 @@ export const productSchema = yup.object().shape({
 
   image: yup.mixed().required("Product image is required"),
 
+  brandId: yup.number().required("Brand is required"),
+
 });

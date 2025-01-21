@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -5,6 +6,7 @@ import FormSubmitButton from "@/components/shared/FormSubmitButton";
 import Input from "@/components/shared/Input";
 import Select from "@/components/shared/Select";
 import { productSchema } from "./Schema";
+import { Category, SubCategory, Brand } from "@prisma/client";
 
 interface AddProductProps {
   modalClose: (open: boolean) => void;
