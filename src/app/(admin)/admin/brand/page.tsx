@@ -1,19 +1,15 @@
-import BrandComponent from '@/components/Admin/Brand/BrandComponent'
-import React from 'react'
-import { prisma } from '../../../../../prisma/client'
+import BrandComponent from "@/components/Admin/Brand/BrandComponent";
+import React from "react";
+import { prisma } from "../../../../../prisma/client";
 
 const BrandPage = async () => {
-
-
-const data = await prisma.brand.findMany()
-
-console.log(data);
+  const data = await prisma.brand.findMany();
 
   return (
-    <div>
-      <BrandComponent />
-    </div>
-  )
-}
+    <>
+      <BrandComponent data={data} />
+    </>
+  );
+};
 
-export default BrandPage
+export default BrandPage;
