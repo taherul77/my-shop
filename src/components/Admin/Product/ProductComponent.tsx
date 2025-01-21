@@ -17,15 +17,20 @@ import { handleEditData } from "@/redux/Reducer/MainSlice";
 import AddProduct from "./AddProduct";
 import EditProduct from "./EditProduct";
 
+
 interface ProductData {
-  id: string;
+  id: number ;
   name: string;
-  description: string;
+  description: string | null;
   price: number;
-  status: boolean;
-  imagePath?: string; // Add this line
-  createdAt?: string;
-  updatedAt?: string;
+  status: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  imagePath: string;
+   categoryId: number; 
+   subCategoryId: number | null;
+    brandId: number | null;
+
 }
 
 interface Props {

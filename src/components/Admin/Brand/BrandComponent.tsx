@@ -17,19 +17,18 @@ import { handleEditData } from "@/redux/Reducer/MainSlice";
 import AddBrand from "./AddBrand";
 import EditBrand from "./EditBrand";
 
-interface ProductData {
-  id: string;
+interface BrandData {
+  id: number;
   name: string;
-  description: string;
-  price: number;
-  status: boolean;
+
+  status: string;
   imagePath?: string; 
-  createdAt?: string;
-  updatedAt?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 interface Props {
-  data: ProductData[];
+  data: BrandData[];
 }
 
 const BrandComponent = ({data}:Props) => {
