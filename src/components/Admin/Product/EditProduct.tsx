@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -5,8 +6,21 @@ import FormSubmitButton from "@/components/shared/FormSubmitButton";
 import Input from "@/components/shared/Input";
 import Select from "@/components/shared/Select";
 import { productSchema } from "./Schema";
+
+// Define or import the Category type
+interface Category {
+  id: number;
+  name: string;
+}
+
+// Define or import the SubCategory type
+interface SubCategory {
+  id: number;
+  name: string;
+  categoryId: number;
+}
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../../redux/Store";
+import { RootState } from "@/redux/store";
 import { handleEditData } from "@/redux/Reducer/MainSlice";
 
 interface EditProductProps {
@@ -22,13 +36,14 @@ const EditProduct: React.FC<EditProductProps> = ({ modalClose }) => {
   const selectedProduct = useSelector(
     (state: RootState) => state.main.editData
   );
+  console.log("Selected Product:", selectedProduct);
 
   interface ProductFormData {
     name: string;
     description: string;
     price: number;
     categoryId: number;
-    subCategoryId?: number;
+    subCategoryId?: number | null;
     status: string;
     image: FileList;
   }
@@ -39,6 +54,7 @@ const EditProduct: React.FC<EditProductProps> = ({ modalClose }) => {
     handleSubmit,
     watch,
     reset,
+    setValue,
     formState: { errors },
   } = useForm<ProductFormData>({
     resolver: yupResolver(productSchema),
@@ -60,14 +76,17 @@ const EditProduct: React.FC<EditProductProps> = ({ modalClose }) => {
         const response = await fetch("http://localhost:3000/api/category");
         const data = await response.json();
         setCategories(data);
-        console.log("Fetched Categories:", data); // Debug log for categories
+     
+        if (selectedProduct?.categoryId) {
+          setValue("categoryId", selectedProduct.categoryId);
+        }
       } catch (error) {
         console.error("Error fetching categories:", error);
       }
     };
 
     fetchCategories();
-  }, []);
+  }, [selectedProduct, setValue]);
 
   useEffect(() => {
     if (!selectedCategoryId) {
@@ -82,14 +101,19 @@ const EditProduct: React.FC<EditProductProps> = ({ modalClose }) => {
         );
         const data = await response.json();
         setSubCategories(data);
-        console.log("Fetched Subcategories:", data); // Debug log for subcategories
+       
+
+    
+        if (selectedProduct?.subCategoryId) {
+          setValue("subCategoryId", selectedProduct.subCategoryId);
+        }
       } catch (error) {
         console.error("Error fetching subcategories:", error);
       }
     };
 
     fetchSubCategories();
-  }, [selectedCategoryId]);
+  }, [selectedCategoryId, selectedProduct, setValue]);
 
   const onSubmit: SubmitHandler<ProductFormData> = async (data) => {
     setLoading(true);
@@ -167,6 +191,7 @@ const EditProduct: React.FC<EditProductProps> = ({ modalClose }) => {
         <Select
           label="Category"
           name="categoryId"
+          
           register={register}
           options={categories.map((category) => ({
             value: category.id,

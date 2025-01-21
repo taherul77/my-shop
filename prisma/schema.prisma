@@ -21,6 +21,8 @@ model Product {
   category      Category     @relation(fields: [categoryId], references: [id])
   subCategoryId Int?
   subCategory   SubCategory? @relation(fields: [subCategoryId], references: [id])
+  brandId       Int?
+  brand         Brand?       @relation(fields: [brandId], references: [id])
   imagePath     String       @default("https://res.cloudinary.com/dkvqtc5pb/image/upload/v1737433308/products/1737433306032-taherul.PNG.png") 
   status    Status   @default(ACTIVE)
   createdAt DateTime @default(now())
@@ -48,4 +50,14 @@ model SubCategory {
   categoryId Int
   category   Category  @relation(fields: [categoryId], references: [id])
   products   Product[]
+}
+
+model Brand {
+  id        Int       @id @default(autoincrement())
+  name      String    @db.VarChar(255)
+  title     String?   @db.VarChar(255)
+  status    Status    @default(ACTIVE)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  products  Product[]
 }
