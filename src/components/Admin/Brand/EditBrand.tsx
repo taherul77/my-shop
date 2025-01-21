@@ -1,6 +1,9 @@
 import React from 'react'
+interface EditBrandProps {
+  modalClose: (open: boolean) => void;
+}
 
-const EditBrand = () => {
+const EditBrand = ({modalClose}:EditBrandProps) => {
   return (
     <div>
       
