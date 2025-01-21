@@ -21,7 +21,7 @@ import {
 import { FiLogOut } from "react-icons/fi";
 import { usePathname } from "next/navigation";
 
-const KitchenLogoWhite = "/file.svg";
+const myShopLogo = "/file.svg";
 
 export function SidebarM({ children }: { children: React.ReactNode }) {
   const links = [
@@ -90,7 +90,7 @@ export function SidebarM({ children }: { children: React.ReactNode }) {
             <div className="mt-8 flex flex-col gap-2">
               {links.map((link, idx) => (
                 <div key={idx}>
-                  {/* If the link has subLinks, render a dropdown */}
+                
                   {link.subLinks ? (
                     <div>
                       <SidebarLink
@@ -164,7 +164,7 @@ export const Logo = () => {
       className="font-normal flex space-x-2 items-center text-sm py-1 relative z-20"
     >
       <Image
-        src={KitchenLogoWhite}
+        src={myShopLogo}
         alt="kitchen logo"
         width={100}
         height={100}
@@ -179,7 +179,7 @@ const LogoIcon = () => {
       href="/admin/dashboard"
       className="font-normal flex space-x-2 items-center text-sm py-1 relative z-20"
     >
-      <Image src={KitchenLogoWhite} alt="kitchen logo" width={60} height={60} />
+      <Image src={myShopLogo} alt="kitchen logo" width={60} height={60} />
     </Link>
   );
 };
