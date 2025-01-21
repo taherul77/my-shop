@@ -6,7 +6,7 @@ import Input from "@/components/shared/Input";
 import Select from "@/components/shared/Select";
 import { productSchema } from "./Schema";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "@/redux/store";
+import { RootState } from "../../../redux/Store";
 import { handleEditData } from "@/redux/Reducer/MainSlice";
 
 interface EditProductProps {
@@ -60,6 +60,7 @@ const EditProduct: React.FC<EditProductProps> = ({ modalClose }) => {
         const response = await fetch("http://localhost:3000/api/category");
         const data = await response.json();
         setCategories(data);
+        console.log("Fetched Categories:", data); // Debug log for categories
       } catch (error) {
         console.error("Error fetching categories:", error);
       }
@@ -81,6 +82,7 @@ const EditProduct: React.FC<EditProductProps> = ({ modalClose }) => {
         );
         const data = await response.json();
         setSubCategories(data);
+        console.log("Fetched Subcategories:", data); // Debug log for subcategories
       } catch (error) {
         console.error("Error fetching subcategories:", error);
       }
@@ -93,7 +95,7 @@ const EditProduct: React.FC<EditProductProps> = ({ modalClose }) => {
     setLoading(true);
 
     const formData = new FormData();
-    formData.append("id", selectedProduct.id); // Include the product ID for updating
+    formData.append("id", selectedProduct.id); 
     formData.append("name", data.name);
     formData.append("description", data.description);
     formData.append("price", data.price.toString());

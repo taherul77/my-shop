@@ -1,9 +1,22 @@
+
 import * as yup from "yup";
+
+
+
 export const productSchema = yup.object().shape({
-    name: yup.string().required('Product name is required'),
-    description: yup.string().required('Description is required'),
-    price: yup.number().required('Price is required').positive('Price must be a positive number'),
-    categoryId: yup.number().required('Category is required'),
-    subCategoryId: yup.number().optional(),
-    status: yup.string().required('Status is required'),
+
+  name: yup.string().required("Product name is required"),
+
+  description: yup.string().required("Product description is required"),
+
+  price: yup.number().required("Product price is required").positive(),
+
+  categoryId: yup.number().required("Category is required"),
+
+  subCategoryId: yup.number().nullable(),
+
+  status: yup.string().required("Status is required"),
+
+  image: yup.mixed().required("Product image is required"),
+
 });
