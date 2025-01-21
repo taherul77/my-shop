@@ -60,8 +60,9 @@ export async function POST(req: Request) {
       : null;
     const status = formData.get("status") || "ACTIVE";
     const file = formData.get("image") as File | null;
+    const brandId = parseInt(formData.get("brandId") as string, 10);
 
-    if (!name || !description || !price || !categoryId) {
+    if (!name || !description || !price || !categoryId || !brandId) {
       return NextResponse.json(
         { message: "All required fields must be provided" },
         { status: 400 }
@@ -87,6 +88,7 @@ export async function POST(req: Request) {
         subCategoryId,
         status: status.toString(),
         imagePath,
+        brandId
       },
     });
 

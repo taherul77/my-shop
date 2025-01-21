@@ -23,6 +23,7 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
     subCategoryId?: number;
     status: string;
     image: FileList;
+    brandId: number;
   }
 
   const {
@@ -37,11 +38,25 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
   });
 
   const selectedCategoryId = watch("categoryId");
+  const [brands, setBrands] = useState<Brand[]>([]);
 
+  useEffect(() => {
+    const fetchBrands = async () => {
+      try {
+        const response = await fetch("/api/brand");
+        const data = await response.json();
+        setBrands(data);
+      } catch (error) {
+        console.error("Error fetching brands:", error);
+      }
+    };
+
+    fetchBrands();
+  }, []);
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/category");
+        const response = await fetch("/api/category");
         const data = await response.json();
         setCategories(data);
       } catch (error) {
@@ -61,7 +76,7 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
     const fetchSubCategories = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/category/${selectedCategoryId}/subcategories`
+          `/api/category/${selectedCategoryId}/subcategories`
         );
         const data = await response.json();
         setSubCategories(data);
@@ -84,6 +99,8 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
     if (data.subCategoryId)
       formData.append("subCategoryId", data.subCategoryId.toString());
     formData.append("status", data.status);
+    formData.append("image", data.image[0]);
+    formData.append("brandId", data.brandId.toString());
 
     const imageFile = data.image[0];
     if (imageFile) {
@@ -160,6 +177,15 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
           options={subCategories.map((subCategory) => ({
             value: subCategory.id,
             label: subCategory.name,
+          }))}
+        />
+        <Select
+          label="Brand"
+          name="brandId"
+          register={register}
+          options={brands.map((brand) => ({
+            value: brand.id,
+            label: brand.name,
           }))}
         />
         <Select

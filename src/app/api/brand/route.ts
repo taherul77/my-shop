@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse,NextRequest } from "next/server";
 import cloudinary from "../../../lib/cloudinaryConfig";
 import { prisma } from "../../../../prisma/client";
 import multer from "multer";
@@ -86,7 +86,19 @@ export async function POST(req: Request) {
     );
   }
 }
-
+export async function GET(request: NextRequest) {
+  try {
+    const brands = await prisma.brand.findMany({
+      include: {
+        products: true,
+      },
+    });
+    return NextResponse.json(brands, { status: 200 });
+  } catch (error) {
+    console.error('Error fetching brands:', error);
+    return NextResponse.json({ error: error instanceof Error ? error.message : 'Error fetching categories' }, { status: 500 });
+  }
+}
 export async function DELETE(req: Request) {
   const { id } = await req.json();
 

@@ -8,15 +8,15 @@ import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
 import { TbBrandDatabricks } from "react-icons/tb";
 import { BiCategoryAlt,BiSolidCategory } from "react-icons/bi";
 import { IoIosColorPalette } from "react-icons/io";
-import { FaHourglassEnd, FaChevronDown, FaAngleUp } from "react-icons/fa";
+
 
 import { RiMenuUnfoldFill } from "react-icons/ri";
 import {
-  MdOutlineInstallDesktop,
+ 
   MdOutlineProductionQuantityLimits,
-  MdOutlineStyle,
+ 
 } from "react-icons/md";
-import { GiMaterialsScience } from "react-icons/gi";
+
 // import { AiOutlineSetting } from "react-icons/ai";
 import { FiLogOut } from "react-icons/fi";
 import { usePathname } from "next/navigation";
@@ -104,19 +104,7 @@ export function SidebarM({ children }: { children: React.ReactNode }) {
                         }`}
                         onClick={() => setMenuOpen(!menuOpen)}
                       />
-                      {/* Right side icon toggle */}
-                      {/* <span
-                        className={`ml-2 text-black transform ${
-                          menuOpen ? "rotate-180" : ""
-                        }`}
-                      >
-                        {menuOpen ? (
-                          <FaAngleUp className="h-4 w-4" />
-                        ) : (
-                          <FaChevronDown className="h-4 w-4" />
-                        )}
-                      </span> */}
-                      {/* Submenu items */}
+                  
                       {menuOpen &&
                         link.subLinks.map((subLink, subIdx) => (
                           <SidebarLink
@@ -172,7 +160,7 @@ export function SidebarM({ children }: { children: React.ReactNode }) {
 export const Logo = () => {
   return (
     <Link
-      href="/"
+      href="/admin/dashboard"
       className="font-normal flex space-x-2 items-center text-sm py-1 relative z-20"
     >
       <Image
@@ -188,7 +176,7 @@ export const Logo = () => {
 const LogoIcon = () => {
   return (
     <Link
-      href="#"
+      href="/admin/dashboard"
       className="font-normal flex space-x-2 items-center text-sm py-1 relative z-20"
     >
       <Image src={KitchenLogoWhite} alt="kitchen logo" width={60} height={60} />
