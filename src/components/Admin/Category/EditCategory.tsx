@@ -61,7 +61,7 @@ const EditCategory: React.FC<EditCategoryProps> = ({ modalClose }) => {
           ...result,
           createdAt: result.createdAt
             ? new Date(result.createdAt).toISOString()
-            : null, // Serialize createdAt
+            : null, 
           updatedAt: result.updatedAt
             ? new Date(result.updatedAt).toISOString()
             : null, // Serialize updatedAt
