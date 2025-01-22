@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-
 import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
@@ -8,20 +7,14 @@ import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
 import { TbBrandDatabricks } from "react-icons/tb";
 import { BiCategoryAlt,BiSolidCategory } from "react-icons/bi";
 import { IoIosColorPalette } from "react-icons/io";
-
-
 import { RiMenuUnfoldFill } from "react-icons/ri";
 import {
- 
   MdOutlineProductionQuantityLimits,
- 
 } from "react-icons/md";
 
-// import { AiOutlineSetting } from "react-icons/ai";
 import { FiLogOut } from "react-icons/fi";
 import { usePathname } from "next/navigation";
 
-// const myShopLogo = "/file.svg";
 const myShopLogo = `https://api.dicebear.com/7.x/notionists/svg?seed=${encodeURIComponent("Sofia Davis")}`;
 
 export function SidebarM({ children }: { children: React.ReactNode }) {
@@ -53,9 +46,6 @@ export function SidebarM({ children }: { children: React.ReactNode }) {
       href: "/admin/color",
       icon: <IoIosColorPalette className="h-5 w-5 flex-shrink-0" />,
     },
-
- 
-
     {
       label: "Product ",
       href: "/admin/product",
@@ -74,7 +64,6 @@ export function SidebarM({ children }: { children: React.ReactNode }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathName = usePathname();
 
-  // Set "Menu" active if either "Category" or "Sub Category" is active
   const isMenuActive =
     pathName === "/admin/category" || pathName === "/admin/subCategory";
 
