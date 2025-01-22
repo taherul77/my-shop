@@ -21,7 +21,8 @@ import {
 import { FiLogOut } from "react-icons/fi";
 import { usePathname } from "next/navigation";
 
-const myShopLogo = "/file.svg";
+// const myShopLogo = "/file.svg";
+const myShopLogo = `https://api.dicebear.com/7.x/notionists/svg?seed=${encodeURIComponent("Sofia Davis")}`;
 
 export function SidebarM({ children }: { children: React.ReactNode }) {
   const links = [
@@ -136,11 +137,12 @@ export function SidebarM({ children }: { children: React.ReactNode }) {
                 href: "#",
                 icon: (
                   <Image
-                    src={"/images/vai.jfif"}
+                    src={myShopLogo}
                     className="h-7 w-7 flex-shrink-0 rounded-full"
                     width={50}
                     height={50}
                     alt="Avatar"
+                    unoptimized
                   />
                 ),
               }}
@@ -168,6 +170,7 @@ export const Logo = () => {
         alt="kitchen logo"
         width={100}
         height={100}
+        unoptimized
       />
     </Link>
   );
@@ -179,7 +182,7 @@ const LogoIcon = () => {
       href="/admin/dashboard"
       className="font-normal flex space-x-2 items-center text-sm py-1 relative z-20"
     >
-      <Image src={myShopLogo} alt="kitchen logo" width={60} height={60} />
+      <Image src={myShopLogo} alt="kitchen logo" width={60} height={60}  unoptimized />
     </Link>
   );
 };
