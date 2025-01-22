@@ -3,7 +3,7 @@ import cloudinary from "@/lib/cloudinaryConfig";
 import { prisma } from "../../../../../prisma/client";
 import { Readable } from "stream";
 
-// Helper function to upload an image to Cloudinary
+
 const uploadToCloudinary = async (fileBuffer: Buffer, publicId: string) => {
   return new Promise((resolve, reject) => {
     const uploadStream = cloudinary.uploader.upload_stream(
@@ -39,7 +39,7 @@ export async function PATCH(req: Request) {
 
     let imagePath = null;
 
-    // If a new image is provided, upload it to Cloudinary
+   
     if (file) {
       const arrayBuffer = await file.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
@@ -48,14 +48,14 @@ export async function PATCH(req: Request) {
       imagePath = uploadResult.secure_url;
     }
 
-    // Update brand in the database
+   
     const updatedBrand = await prisma.brand.update({
       where: { id },
       data: {
         name,
         title,
         status,
-        ...(imagePath && { image: imagePath }), // Only update image if provided
+        ...(imagePath && { image: imagePath }), 
       },
     });
 
