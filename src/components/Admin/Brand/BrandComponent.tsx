@@ -163,7 +163,7 @@ const BrandComponent = ({data}:Props) => {
           isSubCategory: true, 
         };
 
-        // Make DELETE request
+  
         const response = await fetch("http://localhost:3000/api/brand", {
           method: "DELETE",
           headers: {
