@@ -57,7 +57,7 @@ const AddCategory: React.FC<AddCategoryProps> = ({ modalClose }) => {
 
       if (response.ok) {
         const result = await response.json();
-        console.log('Category added:', result);
+       
         modalClose(); 
         reset();
       } else {

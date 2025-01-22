@@ -33,7 +33,6 @@ interface Props {
 
 const BrandComponent = ({data}:Props) => {
 
-    console.log(data);
     
    
   const dispatch = useDispatch();
@@ -174,7 +173,7 @@ const BrandComponent = ({data}:Props) => {
         });
 
         if (response.ok) {
-          console.log("Deleted successfully");
+        
           // Optionally: Dispatch action to remove from Redux state or refetch the data
           // dispatch(handleDeleteData(dataToDelete.id));
         } else {

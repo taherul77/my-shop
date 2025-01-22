@@ -4,8 +4,7 @@ import { prisma } from "../../../../../prisma/client";
 
 const BrandPage = async () => {
   const data = await prisma.brand.findMany();
-  console.log(data);
-  
+
 
   return (
     <>

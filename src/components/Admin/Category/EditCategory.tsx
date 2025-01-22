@@ -55,7 +55,7 @@ const EditCategory: React.FC<EditCategoryProps> = ({ modalClose }) => {
 
       if (response.ok) {
         const result = await response.json();
-        console.log("Category updated:", result);
+       
 
         const serializedResult = {
           ...result,

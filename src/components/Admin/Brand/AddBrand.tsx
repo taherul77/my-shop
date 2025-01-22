@@ -50,7 +50,7 @@ const AddBrand: React.FC<AddBrandProps> = ({ modalClose }) => {
 
       if (response.ok) {
         const result = await response.json();
-        console.log("Brand added successfully:", result);
+      
         modalClose(false);
         reset();
       } else {

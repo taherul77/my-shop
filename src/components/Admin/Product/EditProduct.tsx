@@ -36,7 +36,7 @@ const EditProduct: React.FC<EditProductProps> = ({ modalClose }) => {
   const selectedProduct = useSelector(
     (state: RootState) => state.main.editData
   );
-  console.log("Selected Product:", selectedProduct);
+
 
   interface ProductFormData {
     name: string;
@@ -141,7 +141,7 @@ const EditProduct: React.FC<EditProductProps> = ({ modalClose }) => {
 
       if (response.ok) {
         const result = await response.json();
-        console.log("Product updated successfully:", result);
+        
         modalClose(false);
         reset();
         dispatch(handleEditData(null)); // Clear the edit data in Redux store

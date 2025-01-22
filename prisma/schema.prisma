@@ -24,9 +24,10 @@ model Product {
   brandId       Int?
   brand         Brand?       @relation(fields: [brandId], references: [id])
   imagePath     String       @default("https://res.cloudinary.com/dkvqtc5pb/image/upload/v1737433308/products/1737433306032-taherul.PNG.png") 
-  status    Status   @default(ACTIVE)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  status        Status       @default(ACTIVE)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  colors        ProductColor[]
 }
 
 model Category {
@@ -61,4 +62,22 @@ model Brand {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   products  Product[]
+}
+
+model Color {
+  id        Int       @id @default(autoincrement())
+  name      String    @db.VarChar(255)
+  hexCode   String    @db.VarChar(7) // Hex code for the color
+  status    Status    @default(ACTIVE)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  products  ProductColor[]
+}
+
+model ProductColor {
+  productId Int
+  colorId   Int
+  product   Product @relation(fields: [productId], references: [id])
+  color     Color   @relation(fields: [colorId], references: [id])
+  @@id([productId, colorId])
 }

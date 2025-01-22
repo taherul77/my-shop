@@ -4,7 +4,7 @@ import { prisma } from '../../../../prisma/client';
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
-  console.log(body);
+ 
 
   try {
     if (body.parentId) {
@@ -52,7 +52,7 @@ export async function GET(request: NextRequest) {
 
 export async function PATCH(request: NextRequest) {
   const body = await request.json();
-  console.log(body);
+
 
   try {
     if (body.id) {
@@ -91,8 +91,7 @@ export async function PATCH(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   const { id, isSubCategory } = await request.json();
-  console.log(`Deleting ${isSubCategory ? 'SubCategory' : 'Category'} with id: ${id}`);
-
+ 
   try {
     if (!id) {
       return NextResponse.json({ error: 'ID is required for deletion' }, { status: 400 });

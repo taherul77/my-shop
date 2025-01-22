@@ -4,7 +4,7 @@ import { prisma } from "../../../../../prisma/client";
 
 const ProductPage = async () => {
   const data = await prisma.product.findMany();
-  console.log(data);
+
 
   return (
     <div>

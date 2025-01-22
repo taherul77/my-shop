@@ -117,7 +117,7 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
 
       if (response.ok) {
         const result = await response.json();
-        console.log("Product added successfully:", result);
+        
         modalClose(false);
         reset();
       } else {
