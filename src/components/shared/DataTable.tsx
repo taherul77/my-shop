@@ -68,8 +68,6 @@ export function DataTable<TData>({ data, columns, searchFieldName, tableName, se
     },
   });
 
-
-
   return (
     <div className="w-full">
       <div className="grid grid-cols-3 ">
@@ -86,7 +84,7 @@ export function DataTable<TData>({ data, columns, searchFieldName, tableName, se
           <p className="text-3xl  font-semibold text-brandColor dark:text-[#FE5900]">{tableName}</p>
         </div>
         <div className="col-span-1 flex items-center justify-end gap-2">
-          <button onClick={() => setAddModalOpen(true)} className="px-3 py-1 rounded bg-primary hover:bg-brandColor text-2xl text-white">
+          <button onClick={() => setAddModalOpen(true)} className="px-3 py-1 rounded bg-primary hover:bg-brandColor text-2xl text-white dark:bg-black dark:hover:bg-brandColor">
             +
           </button>
           <DropdownMenu>
