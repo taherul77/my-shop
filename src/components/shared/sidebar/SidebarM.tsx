@@ -88,8 +88,8 @@ export function SidebarM({ children }: { children: React.ReactNode }) {
                           href: link.href,
                           icon: link.icon,
                         }}
-                        className={`hover:text-brandColor text-black ${
-                          isMenuActive ? "text-brandColor" : ""
+                        className={`hover:text-brandColor text-black dark:text-white ${
+                          isMenuActive ? "text-brandColor dark:text-brandColor" : ""
                         }`}
                         onClick={() => setMenuOpen(!menuOpen)}
                       />
@@ -98,8 +98,8 @@ export function SidebarM({ children }: { children: React.ReactNode }) {
                           <SidebarLink
                             key={subIdx}
                             link={subLink}
-                            className={`ml-4 hover:text-brandColor text-black ${
-                              pathName === subLink.href && "text-brandColor"
+                            className={`ml-4 hover:text-brandColor text-black dark:text-white dark:hover:text-brandColor ${
+                              pathName === subLink.href && "text-brandColor dark:text-brandColor"
                             }`}
                           />
                         ))}
@@ -108,8 +108,8 @@ export function SidebarM({ children }: { children: React.ReactNode }) {
                     <SidebarLink
                       key={idx}
                       link={link}
-                      className={`hover:text-brandColor text-black ${
-                        pathName === link.href && "text-brandColor"
+                      className={`hover:text-brandColor dark:hover:text-brandColor text-black dark:text-white ${
+                        pathName === link.href && "text-brandColor dark:text-brandColor"
                       }`}
                     />
                   )}
