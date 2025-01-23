@@ -67,11 +67,11 @@ const page = () => {
   ];
 
   return (
-    <div className="flex min-h-screen flex-col items-center p-6">
+    <div className="flex min-h-screen flex-col items-center px-6">
       <Navbar />
 
 
-      <div className="max-w-7xl w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-24">
+      <div className="max-w-7xl w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 ">
         <div className="col-span-1">
           <Component />
         </div>
@@ -93,7 +93,7 @@ const page = () => {
       </div>
 
 
-      <div className=" max-w-7xl lex flex-col gap-5 w-full py-4">
+      <div className=" max-w-7xl flex flex-col gap-5 w-full py-4">
         <section className="grid w-full grid-cols-1 gap-4 gap-x-8 transition-all sm:grid-cols-2 xl:grid-cols-4">
           {cardData.map((data, index) => (
             <Card

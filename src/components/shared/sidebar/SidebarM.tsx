@@ -140,7 +140,7 @@ export function SidebarM({ children }: { children: React.ReactNode }) {
       </Sidebar>
       <div
         className={cn(
-          " flex-1 p-2 md:p-10 rounded-tl-2xl border bg-backgroundColor dark:bg-gray-900  flex flex-col gap-2 w-full h-full overflow-hidden overflow-y-scroll",
+          " flex-1 p-2 md:p-10 rounded-tl-2xl border bg-backgroundColor dark:bg-black dark:bg-[url('/bg.png')] bg-cover bg-center flex flex-col gap-2 w-full h-full overflow-hidden overflow-y-scroll",
           theme === "light" ? "border-Tertiary text-brandColorSecondary" : "border-gray-700 text-white"
         )}
       >
