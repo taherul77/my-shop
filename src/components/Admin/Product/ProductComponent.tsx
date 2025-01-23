@@ -173,7 +173,6 @@ const ProductComponent = ({ data }: Props) => {
           id: dataToDelete.id,
         };
 
-        // Make DELETE request
         const response = await fetch("/api/product", {
           method: "DELETE",
           headers: {
@@ -193,7 +192,7 @@ const ProductComponent = ({ data }: Props) => {
         console.error("Error during deletion:", error);
       }
 
-      setDeleteModalOpen(false); // Close the modal after deleting
+      setDeleteModalOpen(false);
     }
   };
 

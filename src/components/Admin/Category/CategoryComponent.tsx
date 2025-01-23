@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
-
 import React, { useState } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/components/shared/DataTable";
@@ -24,7 +23,6 @@ interface CategoryComponentProps {
 
 const CategoryComponent = ({ data }: CategoryComponentProps) => {
   const dispatch = useDispatch();
-
   const columns: ColumnDef<any>[] = [
     {
       header: "Sl No",
@@ -169,7 +167,6 @@ const CategoryComponent = ({ data }: CategoryComponentProps) => {
           </DialogHeader>
         </DialogContent>
       </Dialog>
-
 
       <Dialog open={deleteModalOpen} onOpenChange={setDeleteModalOpen}>
         <DialogContent className="bg-white w-[50vw]">

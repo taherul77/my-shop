@@ -107,14 +107,14 @@ const SubCategoryComponent = ({ data }: CategoryComponentProps) => {
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [dataToDelete, setDataToDelete] = useState<any>(null); // Store the data to delete
+  const [dataToDelete, setDataToDelete] = useState<any>(null);
 
   const handleDelete = async () => {
     if (dataToDelete) {
       try {
         const payload = {
           id: dataToDelete.id,
-          isSubCategory: true, // Adjust this flag based on your data
+          isSubCategory: true,
         };
 
         // Make DELETE request
@@ -137,7 +137,7 @@ const SubCategoryComponent = ({ data }: CategoryComponentProps) => {
         console.error("Error during deletion:", error);
       }
 
-      setDeleteModalOpen(false); // Close the modal after deleting
+      setDeleteModalOpen(false); 
     }
   };
 
