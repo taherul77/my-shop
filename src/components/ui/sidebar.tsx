@@ -15,7 +15,7 @@ interface SidebarContextProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   animate: boolean;
-  sidebarColour: string;
+ 
 }
 
 const SidebarContext = createContext<SidebarContextProps | undefined>(
@@ -60,13 +60,13 @@ export const Sidebar = ({
   open,
   setOpen,
   animate,
-  className,
+
 }: {
   children: React.ReactNode;
   open?: boolean;
   setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   animate?: boolean;
-  className?: string;
+  
 }) => {
   return (
     <SidebarProvider open={open} setOpen={setOpen} animate={animate} >
@@ -114,14 +114,14 @@ export const MobileSidebar = ({
   children,
   ...props
 }: React.ComponentProps<"div">) => {
-  const { open, setOpen, sidebarColour } = useSidebar();
+  const { open, setOpen,  } = useSidebar();
   return (
     <div
       className={cn(
         "h-10 px-4 py-4 flex flex-row md:hidden items-center justify-between w-full",
         className
       )}
-      style={{ backgroundColor: sidebarColour }}
+     
       {...props}
     >
       <div className="flex justify-end z-20 w-full">
