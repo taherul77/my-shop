@@ -86,7 +86,7 @@ const BrandComponent = ({data}:Props) => {
         const data = row.original;
 
         return (
-          <div className="flex justify-start items-center">
+          <div className="flex justify-start items-center ">
             <div
               className={`px-4 py-2 rounded-md ${
                 data.status
@@ -188,7 +188,7 @@ const BrandComponent = ({data}:Props) => {
   };
 
   return (
-    <div>
+    <div className="">
       <DataTable
         data={data}
         columns={columns}

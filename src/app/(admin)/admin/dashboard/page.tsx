@@ -68,10 +68,10 @@ const page = () => {
 
   return (
     <div className="flex min-h-screen flex-col items-center px-6">
-      <Navbar />
+    
 
 
-      <div className="max-w-7xl w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 ">
+      <div className=" w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 ">
         <div className="col-span-1">
           <Component />
         </div>
