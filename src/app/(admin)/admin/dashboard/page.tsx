@@ -93,7 +93,7 @@ const page = () => {
       </div>
 
 
-      <div className="flex flex-col gap-5 w-full">
+      <div className=" max-w-7xl lex flex-col gap-5 w-full py-4">
         <section className="grid w-full grid-cols-1 gap-4 gap-x-8 transition-all sm:grid-cols-2 xl:grid-cols-4">
           {cardData.map((data, index) => (
             <Card
@@ -105,7 +105,7 @@ const page = () => {
             />
           ))}
         </section>
-        <section className="grid grid-cols-1 gap-4 transition-all lg:grid-cols-2">
+        <section className="grid grid-cols-1 gap-4 transition-all lg:grid-cols-2 py-4">
           <CardContent>
             <p className="p-4 font-semibold">Overview</p>
             <BarChart />
