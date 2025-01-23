@@ -74,7 +74,7 @@ const CategoryComponent = ({ data }: CategoryComponentProps) => {
         return (
           <>
             <button
-              className="hover:text-brandColor rounded-md text-black"
+              className="hover:text-brandColor rounded-md text-black dark:text-white dark:hover:text-brandColor"
               onClick={() => {
                 setEditModalOpen(true);
                 const serializableData = {
@@ -92,7 +92,7 @@ const CategoryComponent = ({ data }: CategoryComponentProps) => {
               <BiEdit size={21} />
             </button>
             <button
-              className="hover:text-red-500 px-4 py-2 rounded-md text-black ml-2"
+              className="hover:text-red-500 px-4 py-2 rounded-md text-black dark:text-white dark:hover:text-red-500 ml-2"
               onClick={() => {
                 setDeleteModalOpen(true);
                 setDataToDelete(data);
