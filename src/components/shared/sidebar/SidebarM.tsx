@@ -73,7 +73,7 @@ export function SidebarM({ children }: { children: React.ReactNode }) {
         "rounded-md flex flex-col md:flex-row w-full h-screen flex-1 bg-white dark:bg-gray-900" 
       )}
     >
-      <Sidebar open={open} setOpen={setOpen} className={`bg-white dark:bg-gray-900`}>
+      <Sidebar open={open} setOpen={setOpen}>
         <SidebarBody className="justify-between gap-10">
           <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
             {open ? <Logo /> : <LogoIcon />}
@@ -89,7 +89,7 @@ export function SidebarM({ children }: { children: React.ReactNode }) {
                           icon: link.icon,
                         }}
                         className={`hover:text-brandColor text-black dark:text-white ${
-                          isMenuActive ? "text-brandColor dark:text-brandColor" : ""
+                          isMenuActive ? "text-brandColor dark:text-[#FE5900]" : ""
                         }`}
                         onClick={() => setMenuOpen(!menuOpen)}
                       />
@@ -98,8 +98,8 @@ export function SidebarM({ children }: { children: React.ReactNode }) {
                           <SidebarLink
                             key={subIdx}
                             link={subLink}
-                            className={`ml-4 hover:text-brandColor text-black dark:text-white dark:hover:text-brandColor ${
-                              pathName === subLink.href && "text-brandColor dark:text-brandColor"
+                            className={`ml-4 hover:text-brandColor text-black dark:text-white dark:hover:text-[#FE5900] ${
+                              pathName === subLink.href && "text-brandColor dark:text-[#FE5900]"
                             }`}
                           />
                         ))}
@@ -108,8 +108,8 @@ export function SidebarM({ children }: { children: React.ReactNode }) {
                     <SidebarLink
                       key={idx}
                       link={link}
-                      className={`hover:text-brandColor dark:hover:text-brandColor text-black dark:text-white ${
-                        pathName === link.href && "text-brandColor dark:text-brandColor"
+                      className={`hover:text-brandColor dark:hover:text-[#FE5900] text-black dark:text-white ${
+                        pathName === link.href && "text-brandColor dark:text-[#FE5900]"
                       }`}
                     />
                   )}
