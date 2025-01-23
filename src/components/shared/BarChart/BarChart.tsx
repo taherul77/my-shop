@@ -1,4 +1,5 @@
 'use client'
+import { useTheme } from 'next-themes'
 import React from 'react'
 import { Bar, ResponsiveContainer } from 'recharts'
 import { BarChart as BarGraph, XAxis, YAxis } from 'recharts'
@@ -57,6 +58,10 @@ const data = [
   ];
 
 export default function BarChart({}: Props) {
+  const { theme } = useTheme()
+  const barColor = theme === "light" ? "#000000" : "teal"
+  const lineData = theme === "light" ? "black" : theme === "system" ? "gray-300": "white"
+
   return (
     <ResponsiveContainer width={'100%'} height={350}>
         <BarGraph data={data}>
@@ -64,17 +69,17 @@ export default function BarChart({}: Props) {
           dataKey={"name"}
           tickLine={false}
           axisLine={false}
-          stroke="#888888"
+          stroke={lineData}
           fontSize={12}
         />
         <YAxis
           tickLine={false}
           axisLine={false}
-          stroke="#888888"
+          stroke={lineData}
           fontSize={12}
           tickFormatter={(value) => `$${value}`}
         />
-        <Bar dataKey={"total"} radius={[4, 4, 0, 0]} />
+        <Bar dataKey={"total"} fill={barColor} radius={[4, 4, 0, 0]} />
         </BarGraph>
     </ResponsiveContainer>
   )

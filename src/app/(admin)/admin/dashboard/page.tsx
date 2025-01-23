@@ -107,7 +107,7 @@ const page = () => {
         </section>
         <section className="grid grid-cols-1 gap-4 transition-all lg:grid-cols-2 py-4">
           <CardContent>
-            <p className="p-4 font-semibold">Overview</p>
+            <p className="p-4 font-semibold text-black dark:text-white">Overview</p>
             <BarChart />
           </CardContent>
           <CardContent className="flex justify-between gap-4">

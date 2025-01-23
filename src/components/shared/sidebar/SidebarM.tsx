@@ -70,10 +70,10 @@ export function SidebarM({ children }: { children: React.ReactNode }) {
   return (
     <div
       className={cn(
-        "rounded-md flex flex-col md:flex-row w-full h-screen flex-1 bg-white dark:bg-slate-500" 
+        "rounded-md flex flex-col md:flex-row w-full h-screen flex-1 bg-white dark:bg-gray-900" 
       )}
     >
-      <Sidebar open={open} setOpen={setOpen} className={`bg-white dark:bg-slate-500`}>
+      <Sidebar open={open} setOpen={setOpen} className={`bg-white dark:bg-gray-900`}>
         <SidebarBody className="justify-between gap-10">
           <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
             {open ? <Logo /> : <LogoIcon />}
@@ -140,7 +140,7 @@ export function SidebarM({ children }: { children: React.ReactNode }) {
       </Sidebar>
       <div
         className={cn(
-          " flex-1 p-2 md:p-10 rounded-tl-2xl border bg-backgroundColor dark:bg-slate-500  flex flex-col gap-2 w-full h-full overflow-hidden overflow-y-scroll",
+          " flex-1 p-2 md:p-10 rounded-tl-2xl border bg-backgroundColor dark:bg-gray-900  flex flex-col gap-2 w-full h-full overflow-hidden overflow-y-scroll",
           theme === "light" ? "border-Tertiary text-brandColorSecondary" : "border-gray-700 text-white"
         )}
       >
