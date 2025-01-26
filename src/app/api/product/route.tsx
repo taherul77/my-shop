@@ -1,17 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextResponse, NextRequest } from "next/server";
-
-type Status = "ACTIVE" | "INACTIVE" ; 
 import cloudinary from "../../../lib/cloudinaryConfig";
 import { prisma } from "../../../../prisma/client";
 import multer from "multer";
 import { Readable } from "stream";
 
+type Status = "ACTIVE" | "INACTIVE";
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 const uploadMiddleware = upload.single("image");
-
 
 export const config = {
   api: {
@@ -19,7 +17,7 @@ export const config = {
   },
 };
 
-
+// Upload file to Cloudinary
 const uploadToCloudinary = async (fileBuffer: Buffer, publicId: string) => {
   return new Promise((resolve, reject) => {
     const uploadStream = cloudinary.uploader.upload_stream(
@@ -48,7 +46,6 @@ const runMiddleware = (req: Request) =>
     });
   });
 
-
 export async function POST(req: Request) {
   try {
     await runMiddleware(req);
@@ -64,6 +61,7 @@ export async function POST(req: Request) {
     const status = formData.get("status") as Status || "ACTIVE";
     const file = formData.get("image") as File | null;
     const brandId = parseInt(formData.get("brandId") as string, 10);
+    const colorIds = formData.getAll("colorIds[]") as string[]; 
 
     if (!name || !description || !price || !categoryId || !brandId) {
       return NextResponse.json(
@@ -82,6 +80,7 @@ export async function POST(req: Request) {
       imagePath = uploadResult.secure_url;
     }
 
+    // Create the product
     const newProduct = await prisma.product.create({
       data: {
         name,
@@ -95,6 +94,18 @@ export async function POST(req: Request) {
       },
     });
 
+    // Create the associations in the ProductColor table
+    if (colorIds.length > 0) {
+      const productColors = colorIds.map(colorId => ({
+        productId: newProduct.id,
+        colorId: parseInt(colorId, 10),
+      }));
+
+      await prisma.productColor.createMany({
+        data: productColors,
+      });
+    }
+
     return NextResponse.json({
       message: "Product created successfully",
       result: newProduct,
@@ -107,50 +118,3 @@ export async function POST(req: Request) {
     );
   }
 }
-
-
-
-
-export async function DELETE(request: NextRequest) {
-  const { id } = await request.json();
- 
-
-  try {
-    if (!id) {
-      return NextResponse.json({ error: 'ID is required for deletion' }, { status: 400 });
-    }
-
-   
-      const deletedProduct = await prisma.product.delete({
-        where: { id },
-      });
-      return NextResponse.json(deletedProduct, { status: 200 });
-    }
-   catch (error) {
-    console.error('Error deleting category or subcategory:', error);
-    return NextResponse.json({ error: error instanceof Error ? error.message : 'Error deleting category or subcategory' }, { status: 500 });
-  }
-}
-
-
-// // Handle Product Deletion (DELETE)
-// export async function DELETE(req: NextApiRequest, res: NextApiResponse) {
-//   try {
-//     const { id } = req.query;
-
-//     if (!id) {
-//       return res.status(400).json({ message: "Product ID is required" });
-//     }
-
-//     await prisma.product.delete({
-//       where: { id: parseInt(id as string, 10) },
-//     });
-
-//     res.status(200).json({
-//       message: "Product deleted successfully",
-//     });
-//   } catch (error) {
-//     console.error("Error deleting product:", error);
-//     res.status(500).json({ message: "Internal server error" });
-//   }
-// }
