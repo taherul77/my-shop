@@ -22,6 +22,7 @@ interface Props {
 
 const ColorComponent = ({data}:Props) => {
   
+   console.log(data);
    
   const dispatch = useDispatch();
 
@@ -36,6 +37,13 @@ const ColorComponent = ({data}:Props) => {
       header: "Name",
       cell: ({ row }) => (
         <div className="capitalize">{row.getValue("name")}</div>
+      ),
+    },
+    {
+      accessorKey: "hexCode",
+      header: "Hex Code",
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue("hexCode")}</div>
       ),
     },
    
@@ -153,13 +161,13 @@ const ColorComponent = ({data}:Props) => {
         data={data}
         columns={columns}
         searchFieldName={"name"}
-        tableName="All Brands"
+        tableName="All Colors"
         setAddModalOpen={setAddModalOpen}
       />
       <Dialog open={addModalOpen} onOpenChange={setAddModalOpen}>
         <DialogContent className="bg-white w-[50vw] mix-h-[80vh]">
           <DialogTitle>
-            <VisuallyHidden>Add Brand</VisuallyHidden>
+            <VisuallyHidden>Add Color</VisuallyHidden>
           </DialogTitle>
           <DialogHeader>
             <AddColor modalClose={setAddModalOpen} />
@@ -170,7 +178,7 @@ const ColorComponent = ({data}:Props) => {
       <Dialog open={editModalOpen} onOpenChange={setEditModalOpen}>
         <DialogContent className="bg-white w-[50vw] mix-h-[80vh] overflow-auto">
           <DialogTitle>
-            <VisuallyHidden>Edit Brand</VisuallyHidden>
+            <VisuallyHidden>Edit Color</VisuallyHidden>
           </DialogTitle>
           <DialogHeader>
             <EditColor modalClose={setEditModalOpen} />
