@@ -17,7 +17,7 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
   const [loading, setLoading] = useState(false);
-  const [colors, setColors] = useState<Color[]>([]); // Added for colors
+  const [colors, setColors] = useState<Color[]>([]); 
   console.log("colors", colors);
 
   interface ProductFormData {
@@ -29,7 +29,7 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
     status: string;
     image: FileList;
     brandId: number;
-    colorIds: { value: string }[]; // Updated to store selected color IDs as objects
+    colorIds: { value: string }[]; 
   }
 
   const {

@@ -12,7 +12,7 @@ const uploadMiddleware = upload.single("image");
 
 export const config = {
   api: {
-    bodyParser: false, // Disable body parsing for custom handling
+    bodyParser: false,
   },
 };
 
@@ -28,7 +28,7 @@ const runMiddleware = (req: Request) =>
 
 export async function POST(req: Request) {
   try {
-    // Check if the content type is 'multipart/form-data'
+    
     const contentType = req.headers.get("Content-Type");
     if (!contentType || !contentType.includes("multipart/form-data")) {
       return NextResponse.json(
@@ -37,7 +37,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // Run the middleware to process the file upload
+ 
     await runMiddleware(req);
 
     const formData = await req.formData();
