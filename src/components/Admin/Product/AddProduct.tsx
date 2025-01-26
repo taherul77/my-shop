@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import FormSubmitButton from "@/components/shared/FormSubmitButton";
 import Input from "@/components/shared/Input";
 import Select from "@/components/shared/Select";
 import { productSchema } from "./Schema";
-import { Category, SubCategory, Brand } from "@prisma/client";
+import { Category, SubCategory, Brand, Color } from "@prisma/client";
+import ReactSelect from "react-select";
 
 interface AddProductProps {
   modalClose: (open: boolean) => void;
@@ -16,6 +17,8 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
   const [loading, setLoading] = useState(false);
+  const [colors, setColors] = useState<Color[]>([]); // Added for colors
+  console.log("colors", colors);
 
   interface ProductFormData {
     name: string;
@@ -26,6 +29,7 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
     status: string;
     image: FileList;
     brandId: number;
+    colorIds: { value: string }[]; // Updated to store selected color IDs as objects
   }
 
   const {
@@ -55,6 +59,7 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
 
     fetchBrands();
   }, []);
+
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -90,6 +95,26 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
     fetchSubCategories();
   }, [selectedCategoryId]);
 
+  useEffect(() => {
+    const fetchColors = async () => {
+      try {
+        const response = await fetch("/api/color");
+        const data = await response.json();
+        
+        // Extract the result property to get the array of colors
+        if (Array.isArray(data.result)) {
+          setColors(data.result);
+        } else {
+          console.error("Fetched data is not an array", data);
+        }
+      } catch (error) {
+        console.error("Error fetching colors:", error);
+      }
+    };
+  
+    fetchColors();
+  }, []);
+
   const onSubmit: SubmitHandler<ProductFormData> = async (data) => {
     setLoading(true);
 
@@ -104,6 +129,11 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
     formData.append("image", data.image[0]);
     formData.append("brandId", data.brandId.toString());
 
+    // Append colorIds to formData
+    data.colorIds.forEach((color) => {
+      formData.append("colorIds[]", color.value);
+    });
+
     const imageFile = data.image[0];
     if (imageFile) {
       formData.append("image", imageFile);
@@ -117,7 +147,6 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
 
       if (response.ok) {
         const result = await response.json();
-        
         modalClose(false);
         reset();
       } else {
@@ -133,7 +162,7 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="container mx-auto px-3 mt-5 space-y-4"
+      className="container mx-auto px-3 mt-5 space-y-4 max-h[20vh] overflow-y-auto"
     >
       <h2 className="text-xl font-semibold text-primary">Add New Product</h2>
       <div className="grid grid-cols-1 gap-5">
@@ -199,6 +228,27 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
             { value: "INACTIVE", label: "Inactive" },
           ]}
         />
+
+        {/* Added Color Selection */}
+        <div>
+          <label className="block font-semibold text-gray-700">Select Colors</label>
+          <Controller
+            name="colorIds"
+            control={control}
+            render={({ field }) => (
+              <ReactSelect
+                {...field}
+                isMulti
+                options={colors.map((color) => ({
+                  value: color.id,
+                  label: color.name,
+                }))}
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+              />
+            )}
+          />
+        </div>
+
         <input type="file" accept="image/*" {...register("image")} />
       </div>
       <FormSubmitButton

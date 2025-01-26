@@ -206,7 +206,7 @@ const ProductComponent = ({ data }: Props) => {
         setAddModalOpen={setAddModalOpen}
       />
       <Dialog open={addModalOpen} onOpenChange={setAddModalOpen}>
-        <DialogContent className="bg-white w-[50vw]">
+        <DialogContent className="bg-white w-[50vw] max-h-[80vh] overflow-auto">
           <DialogTitle>
             <VisuallyHidden>Add Category</VisuallyHidden>
           </DialogTitle>
@@ -217,7 +217,7 @@ const ProductComponent = ({ data }: Props) => {
       </Dialog>
 
       <Dialog open={editModalOpen} onOpenChange={setEditModalOpen}>
-        <DialogContent className="bg-white w-[50vw] max-h-[80vh] overflow-auto">
+        <DialogContent className="bg-white w-[50vw] max-h-[80vh]">
           <DialogTitle>
             <VisuallyHidden>Edit Category</VisuallyHidden>
           </DialogTitle>

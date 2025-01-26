@@ -4,6 +4,12 @@ import { prisma } from "../../../../../prisma/client";
 
 const ProductPage = async () => {
   const data = await prisma.product.findMany();
+  console.log(data);
+
+  const newData = await prisma.color.findMany();
+
+  console.log("new color",newData);
+  
 
   return (
     <>

@@ -72,3 +72,18 @@ export async function POST(req: Request) {
     );
   }
 }
+export async function GET() {
+    try {
+      const colors = await prisma.color.findMany();
+      return NextResponse.json({
+        message: "Colors fetched successfully",
+        result: colors,
+      });
+    } catch (error) {
+      console.error("Error fetching colors:", error);
+      return NextResponse.json(
+        { message: "Internal server error", result: null },
+        { status: 500 }
+      );
+    }
+  }
