@@ -129,7 +129,7 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
     formData.append("image", data.image[0]);
     formData.append("brandId", data.brandId.toString());
 
-    // Append colorIds to formData
+    
     data.colorIds.forEach((color) => {
       formData.append("colorIds[]", color.value);
     });
@@ -229,7 +229,7 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
           ]}
         />
 
-        {/* Added Color Selection */}
+       
         <div>
           <label className="block font-semibold text-gray-700">Select Colors</label>
           <Controller
