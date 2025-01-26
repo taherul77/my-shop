@@ -8,7 +8,7 @@ const ColorPage =async () => {
     
   return (
     <div>
-      <ColorComponent />
+      <ColorComponent data={data} />
     </div>
   )
 }

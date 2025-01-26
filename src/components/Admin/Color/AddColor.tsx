@@ -1,6 +1,9 @@
 import React from 'react'
+interface AddColourProps {
+  modalClose: (open: boolean) => void;
+}
 
-const AddColor = () => {
+const AddColor = ({modalClose}:AddColourProps) => {
   return (
     <div>
       AddColor
