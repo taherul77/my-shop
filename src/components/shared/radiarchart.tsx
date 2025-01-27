@@ -19,15 +19,17 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 
-// Fake data representing total visitors to the website for the last 6 months
-const chartData = [
-  { month: "January", visitors: 1200 },
-  { month: "February", visitors: 1500 },
-  { month: "March", visitors: 1350 },
-  { month: "April", visitors: 1600 },
-  { month: "May", visitors: 1750 },
-  { month: "June", visitors: 1800 },
-]
+// Function to generate random data for each month
+const generateRandomData = () => {
+  const months = ["January", "February", "March", "April", "May", "June"]
+  return months.map((month) => ({
+    month,
+    visitors: Math.floor(Math.random() * 2000) + 1000, // Random visitors between 1000 and 3000
+  }))
+}
+
+// Generate random chart data
+const chartData = generateRandomData()
 
 const chartConfig = {
   visitors: {
