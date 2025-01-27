@@ -243,7 +243,7 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
                   value: color.id,
                   label: color.name,
                 }))}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                className="mt-1 block w-full px-3 py-2 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
               />
             )}
           />
