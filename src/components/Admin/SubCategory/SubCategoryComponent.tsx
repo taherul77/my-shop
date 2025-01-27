@@ -15,15 +15,25 @@ import { useDispatch } from "react-redux";
 import { handleEditData } from "@/redux/Reducer/MainSlice";
 import AddCategory from "./AddCategory";
 import EditCategory from "./EditCategory";
+import { Status } from "@prisma/client"; // Import Status enum from Prisma
+
+interface SubCategory {
+  id: number;
+  name: string;
+  title: string | null;
+  status: Status;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
 
 interface CategoryComponentProps {
-  data: any;
+  data: SubCategory[];
 }
 
 const SubCategoryComponent = ({ data }: CategoryComponentProps) => {
   const dispatch = useDispatch();
 
-  const columns: ColumnDef<any>[] = [
+  const columns: ColumnDef<SubCategory>[] = [
     {
       header: "Sl No",
       accessorFn: (_row, index) => index + 1,
@@ -53,12 +63,12 @@ const SubCategoryComponent = ({ data }: CategoryComponentProps) => {
           <div className="flex justify-start items-center">
             <div
               className={`px-4 py-2 rounded-md ${
-                data.status
+                data.status === Status.ACTIVE
                   ? "bg-green-200 text-green-700"
                   : "bg-red-200 text-red-700"
               }`}
             >
-              {data.status ? "Active" : "Inactive"}
+              {data.status === Status.ACTIVE ? "Active" : "Inactive"}
             </div>
           </div>
         );
@@ -107,7 +117,7 @@ const SubCategoryComponent = ({ data }: CategoryComponentProps) => {
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [dataToDelete, setDataToDelete] = useState<any>(null);
+  const [dataToDelete, setDataToDelete] = useState<SubCategory | null>(null);
 
   const handleDelete = async () => {
     if (dataToDelete) {
@@ -137,7 +147,7 @@ const SubCategoryComponent = ({ data }: CategoryComponentProps) => {
         console.error("Error during deletion:", error);
       }
 
-      setDeleteModalOpen(false); 
+      setDeleteModalOpen(false);
     }
   };
 

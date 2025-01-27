@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import React, { useState } from "react";
 import { ColumnDef } from "@tanstack/react-table";
@@ -17,13 +15,24 @@ import { handleEditData } from "@/redux/Reducer/MainSlice";
 import AddCategory from "./AddCategory";
 import EditCategory from "./EditCategory";
 import { BiEdit, BiTrash } from "react-icons/bi";
+import { Status } from "@prisma/client"; // Import Status enum from Prisma
+
+interface Category {
+  id: number;
+  name: string;
+  title: string | null;
+  status: Status;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
 interface CategoryComponentProps {
-  data: any;
+  data: Category[];
 }
 
 const CategoryComponent = ({ data }: CategoryComponentProps) => {
   const dispatch = useDispatch();
-  const columns: ColumnDef<any>[] = [
+  const columns: ColumnDef<Category>[] = [
     {
       header: "Sl No",
       accessorFn: (_row, index) => index + 1,
@@ -53,12 +62,12 @@ const CategoryComponent = ({ data }: CategoryComponentProps) => {
           <div className="flex justify-start items-center">
             <div
               className={`px-4 py-2 rounded-md ${
-                data.status
+                data.status === Status.ACTIVE
                   ? "bg-green-200 text-green-700"
                   : "bg-red-200 text-red-700"
               }`}
             >
-              {data.status ? "Active" : "Inactive"}
+              {data.status === Status.ACTIVE ? "Active" : "Inactive"}
             </div>
           </div>
         );
@@ -107,14 +116,14 @@ const CategoryComponent = ({ data }: CategoryComponentProps) => {
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [dataToDelete, setDataToDelete] = useState<any>(null);
+  const [dataToDelete, setDataToDelete] = useState<Category | null>(null);
 
   const handleDelete = async () => {
     if (dataToDelete) {
       try {
         const payload = {
           id: dataToDelete.id,
-        isSubCategory: false
+          isSubCategory: false,
         };
         const response = await fetch("/api/category", {
           method: "DELETE",
@@ -163,7 +172,7 @@ const CategoryComponent = ({ data }: CategoryComponentProps) => {
             <VisuallyHidden>Edit Category</VisuallyHidden>
           </DialogTitle>
           <DialogHeader>
-            <EditCategory modalClose={setEditModalOpen} />
+            <EditCategory modalClose={() => setEditModalOpen(false)} />
           </DialogHeader>
         </DialogContent>
       </Dialog>

@@ -1,9 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
+import { RootState } from "../../../redux/Store/store";
 import { handleEditData } from "@/redux/Reducer/MainSlice";
 import { schema } from "./Schema";
 import Input from "@/components/shared/Input";
@@ -15,7 +14,14 @@ interface EditCategoryProps {
 
 const EditCategory: React.FC<EditCategoryProps> = ({ modalClose }) => {
   const dispatch = useDispatch();
-  const { editData } = useSelector((state: RootState) => state.main);
+  interface EditData {
+    name: string;
+    title: string;
+    createdAt?: string;
+    updatedAt?: string;
+  }
+  
+  const { editData } = useSelector((state: RootState) => state.main) as { editData: EditData | null };
 
   const {
     register,
@@ -23,9 +29,12 @@ const EditCategory: React.FC<EditCategoryProps> = ({ modalClose }) => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
-    defaultValues: {
+    defaultValues: editData ? {
       name: editData.name,
       title: editData.title,
+    } : {
+      name: "",
+      title: "",
     },
   });
 
@@ -36,6 +45,11 @@ const EditCategory: React.FC<EditCategoryProps> = ({ modalClose }) => {
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     try {
+      if (!editData) {
+        console.error("Edit data is null");
+        return;
+      }
+
       const response = await fetch("/api/category", {
         method: "PATCH",
         headers: {
@@ -56,7 +70,6 @@ const EditCategory: React.FC<EditCategoryProps> = ({ modalClose }) => {
       if (response.ok) {
         const result = await response.json();
        
-
         const serializedResult = {
           ...result,
           createdAt: result.createdAt
@@ -68,7 +81,7 @@ const EditCategory: React.FC<EditCategoryProps> = ({ modalClose }) => {
         };
 
         dispatch(handleEditData(serializedResult));
-        modalClose(false);
+        modalClose(false); // Close the modal after successful submission
       } else {
         console.error("Failed to update category:", response.statusText);
       }

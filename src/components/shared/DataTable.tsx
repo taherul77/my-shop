@@ -29,15 +29,15 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-type DataTableProps = {
-  data: any[];
-  columns: ColumnDef<any>[];
-  searchFieldName: keyof any;
+type DataTableProps<T> = {
+  data: T[];
+  columns: ColumnDef<T>[];
+  searchFieldName: keyof T;
   tableName: string;
-  setAddModalOpen: Function;
+  setAddModalOpen: (open: boolean) => void;
 };
 
-export function DataTable({ data, columns, searchFieldName, tableName, setAddModalOpen }: DataTableProps) {
+export function DataTable<T>({ data, columns, searchFieldName, tableName, setAddModalOpen }: DataTableProps<T>) {
 
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [search, setSearch] = React.useState("");

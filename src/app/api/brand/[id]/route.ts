@@ -3,14 +3,20 @@ import cloudinary from "@/lib/cloudinaryConfig";
 import { prisma } from "../../../../../prisma/client";
 import { Readable } from "stream";
 
+interface CloudinaryUploadResult {
+  secure_url: string;
+  // Add other properties if needed
+}
 
-const uploadToCloudinary = async (fileBuffer: Buffer, publicId: string) => {
+type Status = "ACTIVE" | "INACTIVE"; // Define the Status type
+
+const uploadToCloudinary = async (fileBuffer: Buffer, publicId: string): Promise<CloudinaryUploadResult> => {
   return new Promise((resolve, reject) => {
     const uploadStream = cloudinary.uploader.upload_stream(
       { folder: "brands", public_id: publicId, resource_type: "auto" },
       (error, result) => {
         if (error) reject(error);
-        else resolve(result);
+        else resolve(result as CloudinaryUploadResult);
       }
     );
 
@@ -27,7 +33,7 @@ export async function PATCH(req: Request) {
     const id = parseInt(formData.get("id") as string, 10);
     const name = formData.get("name") as string;
     const title = formData.get("title") as string;
-    const status = formData.get("status") || "ACTIVE";
+    const status = formData.get("status") as Status || "ACTIVE";
     const file = formData.get("image") as File | null;
 
     if (!id) {
@@ -39,16 +45,14 @@ export async function PATCH(req: Request) {
 
     let imagePath = null;
 
-   
     if (file) {
       const arrayBuffer = await file.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
       const fileName = `${Date.now()}-${file.name}`;
-      const uploadResult: any = await uploadToCloudinary(buffer, fileName);
+      const uploadResult = await uploadToCloudinary(buffer, fileName);
       imagePath = uploadResult.secure_url;
     }
 
-   
     const updatedBrand = await prisma.brand.update({
       where: { id },
       data: {

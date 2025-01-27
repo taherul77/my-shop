@@ -9,7 +9,7 @@ export const productSchema = yup.object().shape({
 
   description: yup.string().required("Product description is required"),
 
-  price: yup.number().required("Product price is required").positive(),
+  price: yup.number().required("Product price is required"),
 
   categoryId: yup.number().required("Category is required"),
 
@@ -17,8 +17,22 @@ export const productSchema = yup.object().shape({
 
   status: yup.string().required("Status is required"),
 
-  image: yup.mixed().required("Product image is required"),
+  image: yup.mixed().test("fileSize", "File is too large", (value) => {
+
+    return value && value.length > 0 && value[0].size <= 2000000;
+
+  }).required("Product image is required"),
 
   brandId: yup.number().required("Brand is required"),
+
+  colorIds: yup.array().of(
+
+    yup.object().shape({
+
+      value: yup.string().required(),
+
+    })
+
+  ),
 
 });

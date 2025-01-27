@@ -20,7 +20,6 @@ import EditBrand from "./EditBrand";
 interface BrandData {
   id: number;
   name: string;
-
   status: string;
   imagePath?: string; 
   createdAt?: Date;
@@ -31,13 +30,10 @@ interface Props {
   data: BrandData[];
 }
 
-const BrandComponent = ({data}:Props) => {
-
-    
-   
+const BrandComponent = ({ data }: Props) => {
   const dispatch = useDispatch();
 
-  const columns: ColumnDef<ProductData>[] = [
+  const columns: ColumnDef<BrandData>[] = [
     {
       header: "Sl No",
       accessorFn: (_row, index) => index + 1,
@@ -89,12 +85,12 @@ const BrandComponent = ({data}:Props) => {
           <div className="flex justify-start items-center ">
             <div
               className={`px-4 py-2 rounded-md ${
-                data.status
+                data.status === "ACTIVE"
                   ? "bg-green-200 text-green-700"
                   : "bg-red-200 text-red-700"
               }`}
             >
-              {data.status ? "Active" : "Inactive"}
+              {data.status === "ACTIVE" ? "Active" : "Inactive"}
             </div>
           </div>
         );
@@ -143,27 +139,17 @@ const BrandComponent = ({data}:Props) => {
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  interface ProductData {
-    id: string;
-    name: string;
-    description: string;
-    price: number;
-    status: boolean;
-    createdAt?: string;
-    updatedAt?: string;
-  }
 
-  const [dataToDelete, setDataToDelete] = useState<ProductData | null>(null); 
+  const [dataToDelete, setDataToDelete] = useState<BrandData | null>(null);
 
   const handleDelete = async () => {
     if (dataToDelete) {
       try {
         const payload = {
           id: dataToDelete.id,
-          isSubCategory: true, 
+          isSubCategory: true,
         };
 
-  
         const response = await fetch("http://localhost:3000/api/brand", {
           method: "DELETE",
           headers: {
@@ -173,7 +159,6 @@ const BrandComponent = ({data}:Props) => {
         });
 
         if (response.ok) {
-        
           // Optionally: Dispatch action to remove from Redux state or refetch the data
           // dispatch(handleDeleteData(dataToDelete.id));
         } else {
@@ -247,4 +232,4 @@ const BrandComponent = ({data}:Props) => {
   );
 };
 
-export default BrandComponent
+export default BrandComponent;

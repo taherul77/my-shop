@@ -1,44 +1,42 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { NextResponse } from "next/server";
 import { prisma } from "../../../../prisma/client";
+import { NextRequest, NextResponse } from "next/server";
 import multer from "multer";
+import type { Request, Response } from "express";
 
 type Status = "ACTIVE" | "INACTIVE";
 
+// Configure multer for file handling
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 const uploadMiddleware = upload.single("image");
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
-const runMiddleware = (req: Request) =>
-  new Promise((resolve, reject) => {
-    uploadMiddleware(req as any, {} as any, (result: any) => {
+const runMiddleware = (req: Request, res: Response, fn: (req: Request, res: Response, callback: (result: unknown) => void) => void) => {
+  return new Promise<void>((resolve, reject) => {
+    fn(req, res, (result: unknown) => {
       if (result instanceof Error) {
         return reject(result);
       }
-      resolve(null);
+      resolve();
     });
   });
+};
 
-export async function POST(req: Request) {
+export const config = {
+  api: {
+    bodyParser: false, // Disable body parsing by Next.js
+  },
+};
+
+// POST Handler
+export async function POST(req: NextRequest) {
   try {
-    
-    const contentType = req.headers.get("Content-Type");
+    const contentType = req.headers.get("content-type");
     if (!contentType || !contentType.includes("multipart/form-data")) {
-      return NextResponse.json(
-        { error: "Content-Type must be multipart/form-data" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Content-Type must be multipart/form-data" }, { status: 400 });
     }
 
- 
-    await runMiddleware(req);
+    const res = new NextResponse();
+    await runMiddleware(req as unknown as Request, res as unknown as Response, uploadMiddleware);
 
     const formData = await req.formData();
     const name = formData.get("name") as string;
@@ -46,10 +44,7 @@ export async function POST(req: Request) {
     const status = (formData.get("status") as Status) || "ACTIVE";
 
     if (!name || !hexCode) {
-      return NextResponse.json(
-        { error: "Name and HexCode are required" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Name and HexCode are required" }, { status: 400 });
     }
 
     const newColor = await prisma.color.create({
@@ -66,24 +61,20 @@ export async function POST(req: Request) {
     });
   } catch (error) {
     console.error("Error creating color:", error);
-    return NextResponse.json(
-      { message: "Internal server error", result: null },
-      { status: 500 }
-    );
+    return NextResponse.json({ message: "Internal server error", result: null }, { status: 500 });
   }
 }
+
+// GET Handler
 export async function GET() {
-    try {
-      const colors = await prisma.color.findMany();
-      return NextResponse.json({
-        message: "Colors fetched successfully",
-        result: colors,
-      });
-    } catch (error) {
-      console.error("Error fetching colors:", error);
-      return NextResponse.json(
-        { message: "Internal server error", result: null },
-        { status: 500 }
-      );
-    }
+  try {
+    const colors = await prisma.color.findMany();
+    return NextResponse.json({
+      message: "Colors fetched successfully",
+      result: colors,
+    });
+  } catch (error) {
+    console.error("Error fetching colors:", error);
+    return NextResponse.json({ message: "Internal server error", result: null }, { status: 500 });
   }
+}

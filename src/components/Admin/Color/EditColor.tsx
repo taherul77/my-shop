@@ -7,6 +7,7 @@ const EditColor = ({modalClose}:EditColourProps) => {
   return (
     <div>
       EditColor
+      <button onClick={() => modalClose(false)}>Close</button>
     </div>
   )
 }

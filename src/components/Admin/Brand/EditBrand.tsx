@@ -6,7 +6,7 @@ interface EditBrandProps {
 const EditBrand = ({modalClose}:EditBrandProps) => {
   return (
     <div>
-      
+      <button onClick={() => modalClose(false)}>Close</button>
     </div>
   )
 }

@@ -15,9 +15,9 @@ const AddBrand: React.FC<AddBrandProps> = ({ modalClose }) => {
 
   interface BrandFormData {
     name: string;
-    title?: string;
-    status: string;
-    image: FileList;
+    title?: string | null | undefined; // Allow null here
+    status: "ACTIVE" | "INACTIVE";
+    image?: FileList | null;
   }
 
   const {
@@ -37,7 +37,7 @@ const AddBrand: React.FC<AddBrandProps> = ({ modalClose }) => {
     if (data.title) formData.append("title", data.title);
     formData.append("status", data.status);
 
-    const imageFile = data.image[0];
+    const imageFile = data.image?.[0];
     if (imageFile) {
       formData.append("image", imageFile);
     }
@@ -49,8 +49,6 @@ const AddBrand: React.FC<AddBrandProps> = ({ modalClose }) => {
       });
 
       if (response.ok) {
-        const result = await response.json();
-      
         modalClose(false);
         reset();
       } else {
@@ -95,6 +93,7 @@ const AddBrand: React.FC<AddBrandProps> = ({ modalClose }) => {
             { value: "ACTIVE", label: "Active" },
             { value: "INACTIVE", label: "Inactive" },
           ]}
+          error={errors.status}
         />
         <input type="file" accept="image/*" {...register("image")} />
       </div>

@@ -5,7 +5,7 @@ interface EditSubCategoryProps {
     modalClose: (open: boolean) => void;
   
   }
-const EditCategory = ({modalClose}:EditSubCategoryProps) => {
+const EditCategory = ({modalClose: _modalClose}:EditSubCategoryProps) => {
   return (
     <div>
       

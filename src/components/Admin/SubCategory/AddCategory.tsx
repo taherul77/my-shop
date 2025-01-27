@@ -73,7 +73,7 @@ const AddCategory: React.FC<AddCategoryProps> = ({ modalClose }) => {
       if (response.ok) {
         const result = await response.json();
      
-        modalClose(); 
+        modalClose(false); 
         reset();
       } else {
         console.error('Failed to add category:', response.statusText);

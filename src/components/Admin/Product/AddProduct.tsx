@@ -1,13 +1,24 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import FormSubmitButton from "@/components/shared/FormSubmitButton";
 import Input from "@/components/shared/Input";
 import Select from "@/components/shared/Select";
-import { productSchema } from "./Schema";
+import { productSchema } from "./Schema"; // Assuming productSchema is a valid yup schema
 import { Category, SubCategory, Brand, Color } from "@prisma/client";
 import ReactSelect from "react-select";
+
+interface ProductFormData {
+  name: string;
+  description: string;
+  price: number;
+  categoryId: number;
+  subCategoryId?: number | null | undefined;
+  status: string;
+  image: FileList;
+  brandId: number;
+  colorIds: { value: string }[];
+}
 
 interface AddProductProps {
   modalClose: (open: boolean) => void;
@@ -17,20 +28,8 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
   const [loading, setLoading] = useState(false);
-  const [colors, setColors] = useState<Color[]>([]); 
-  console.log("colors", colors);
-
-  interface ProductFormData {
-    name: string;
-    description: string;
-    price: number;
-    categoryId: number;
-    subCategoryId?: number;
-    status: string;
-    image: FileList;
-    brandId: number;
-    colorIds: { value: string }[]; 
-  }
+  const [colors, setColors] = useState<Color[]>([]);
+  const [brands, setBrands] = useState<Brand[]>([]);
 
   const {
     control,
@@ -44,8 +43,8 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
   });
 
   const selectedCategoryId = watch("categoryId");
-  const [brands, setBrands] = useState<Brand[]>([]);
 
+  // Fetching brands
   useEffect(() => {
     const fetchBrands = async () => {
       try {
@@ -60,6 +59,7 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
     fetchBrands();
   }, []);
 
+  // Fetching categories
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -74,6 +74,7 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
     fetchCategories();
   }, []);
 
+  // Fetching subcategories based on selected category
   useEffect(() => {
     if (!selectedCategoryId) {
       setSubCategories([]);
@@ -82,9 +83,7 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
 
     const fetchSubCategories = async () => {
       try {
-        const response = await fetch(
-          `/api/category/${selectedCategoryId}/subcategories`
-        );
+        const response = await fetch(`/api/category/${selectedCategoryId}/subcategories`);
         const data = await response.json();
         setSubCategories(data);
       } catch (error) {
@@ -95,13 +94,12 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
     fetchSubCategories();
   }, [selectedCategoryId]);
 
+  // Fetching colors
   useEffect(() => {
     const fetchColors = async () => {
       try {
         const response = await fetch("/api/color");
         const data = await response.json();
-        
-        // Extract the result property to get the array of colors
         if (Array.isArray(data.result)) {
           setColors(data.result);
         } else {
@@ -111,7 +109,7 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
         console.error("Error fetching colors:", error);
       }
     };
-  
+
     fetchColors();
   }, []);
 
@@ -129,7 +127,6 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
     formData.append("image", data.image[0]);
     formData.append("brandId", data.brandId.toString());
 
-    
     data.colorIds.forEach((color) => {
       formData.append("colorIds[]", color.value);
     });
@@ -146,7 +143,7 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
       });
 
       if (response.ok) {
-        const result = await response.json();
+        await response.json();
         modalClose(false);
         reset();
       } else {
@@ -160,10 +157,7 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="container mx-auto px-3 mt-5 space-y-4 max-h[20vh] overflow-y-auto"
-    >
+    <form onSubmit={handleSubmit(onSubmit)} className="container mx-auto px-3 mt-5 space-y-4 max-h[20vh] overflow-y-auto">
       <h2 className="text-xl font-semibold text-primary dark:text-secondary">Add New Product</h2>
       <div className="grid grid-cols-1 gap-5">
         <Input
@@ -197,7 +191,7 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
           name="categoryId"
           register={register}
           options={categories.map((category) => ({
-            value: category.id,
+            value: category.id.toString(),
             label: category.name,
           }))}
         />
@@ -206,7 +200,7 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
           name="subCategoryId"
           register={register}
           options={subCategories.map((subCategory) => ({
-            value: subCategory.id,
+            value: subCategory.id.toString(),
             label: subCategory.name,
           }))}
         />
@@ -215,7 +209,7 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
           name="brandId"
           register={register}
           options={brands.map((brand) => ({
-            value: brand.id,
+            value: brand.id.toString(),
             label: brand.name,
           }))}
         />
@@ -229,7 +223,6 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
           ]}
         />
 
-       
         <div>
           <label className="block font-semibold text-gray-700">Select Colors</label>
           <Controller
@@ -239,7 +232,7 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
               <ReactSelect
                 {...field}
                 isMulti
-                options={colors?.map((color) => ({
+                options={colors.map((color) => ({
                   value: color.id.toString(),
                   label: color.name,
                 }))}
@@ -251,11 +244,7 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
 
         <input type="file" accept="image/*" {...register("image")} />
       </div>
-      <FormSubmitButton
-        status={loading ? "loading" : "idle"}
-        buttonName="Add Product"
-        context="addProduct"
-      />
+      <FormSubmitButton status={loading ? "loading" : "idle"} buttonName="Add Product" context="addProduct" />
     </form>
   );
 };
