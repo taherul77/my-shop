@@ -10,68 +10,56 @@ import { Roundbar } from "@/components/shared/roundbar";
 import { LongChart } from "@/components/shared/longchart";
 import { Radiar } from "@/components/shared/radiarchart";
 import { LineChart2 } from "@/components/shared/LineChart2";
-const page = () => {
-  const cardData: CardProps[] = [
+
+// Function to generate random card data
+const generateRandomCardData = () => {
+  return [
     {
       label: "Total Revenue",
-      amount: "$45,231.89",
-      discription: "+20.1% from last month",
+      amount: `$${(Math.random() * 50000).toFixed(2)}`,
+      discription: `+${(Math.random() * 100).toFixed(1)}% from last month`,
       icon: DollarSign,
     },
     {
       label: "Subscription",
-      amount: "+2350",
-      discription: "+180.1% from last month",
+      amount: `+${Math.floor(Math.random() * 5000)}`,
+      discription: `+${(Math.random() * 200).toFixed(1)}% from last month`,
       icon: Users,
     },
     {
       label: "Sales",
-      amount: "+12,234",
-      discription: "+19% from last month",
+      amount: `+${Math.floor(Math.random() * 20000)}`,
+      discription: `+${(Math.random() * 50).toFixed(1)}% from last month`,
       icon: CreditCard,
     },
     {
-      label: "Active Mow",
-      amount: "+573",
-      discription: "+201 from last month",
+      label: "Active Now",
+      amount: `+${Math.floor(Math.random() * 1000)}`,
+      discription: `+${Math.floor(Math.random() * 300)} from last month`,
       icon: Activity,
     },
   ];
+};
 
-  const userSalesData: SalesProps[] = [
-    {
-      name: "Olivia Martin",
-      email: "olivia.martin@email.com",
-      salesAmount: "+$1,999.00",
-    },
-    {
-      name: "Jackson Lee",
-      email: "isabella.nguyen@email.com",
-      salesAmount: "+$1,999.00",
-    },
-    {
-      name: "Isabella Nguyen",
-      email: "isabella.nguyen@email.com",
-      salesAmount: "+$39.00",
-    },
-    {
-      name: "William Kim",
-      email: "will@email.com",
-      salesAmount: "+$299.00",
-    },
-    {
-      name: "Sofia Davis",
-      email: "sofia.davis@email.com",
-      salesAmount: "+$39.00",
-    },
-  ];
+// Function to generate random user sales data
+const generateRandomUserSalesData = () => {
+  const names = ["Olivia Martin", "Jackson Lee", "Isabella Nguyen", "William Kim", "Sofia Davis"];
+  const emails = ["olivia.martin@email.com", "jackson.lee@email.com", "isabella.nguyen@email.com", "william.kim@email.com", "sofia.davis@email.com"];
+  
+  return names.map((name, index) => ({
+    name,
+    email: emails[index],
+    salesAmount: `+$${(Math.random() * 2000).toFixed(2)}`,
+  }));
+};
+
+const page = () => {
+  const cardData: CardProps[] = generateRandomCardData();
+  const userSalesData: SalesProps[] = generateRandomUserSalesData();
 
   return (
     <div className="flex min-h-screen flex-col items-center px-6">
-    
-
-
-      <div className="max-w-7xl  w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 ">
+      <div className="max-w-7xl w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
         <div className="col-span-1">
           <Component />
         </div>
@@ -84,7 +72,7 @@ const page = () => {
         <div className="col-span-1 sm:col-span-2 lg:col-span-3">
           <LongChart />
         </div>
-        <div className="col-span-1 sm:col-span-2  lg:col-span-1">
+        <div className="col-span-1 sm:col-span-2 lg:col-span-1">
           <Radiar />
         </div>
         <div className="col-span-1 sm:col-span-2 lg:col-span-2">
@@ -92,8 +80,7 @@ const page = () => {
         </div>
       </div>
 
-
-      <div className=" max-w-7xl flex flex-col gap-5 w-full py-4">
+      <div className="max-w-7xl flex flex-col gap-5 w-full py-4">
         <section className="grid w-full grid-cols-1 gap-4 gap-x-8 transition-all sm:grid-cols-2 xl:grid-cols-4">
           {cardData.map((data, index) => (
             <Card
