@@ -33,7 +33,7 @@ const Input: React.FC<InputProps> = ({
         type={type}
         placeholder={placeholder}
         {...register(name, { required })}
-        className={`mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md ${error ? "border-red-500" : "border-gray-300"
+        className={`mt-1 block w-full pl-3 pr-10 bg-slate-200 py-2 text-base border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md ${error ? "border-red-500" : "border-gray-300"
           }`}
         defaultValue={defaultValue}
       />
