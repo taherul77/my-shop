@@ -19,14 +19,17 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 
-// Fake data representing browser usage for visitors to the website for the last 6 months
-const baseChartData = [
-  { browser: "Chrome", visitors: 2750 },
-  { browser: "Safari", visitors: 2000 },
-  { browser: "Firefox", visitors: 1870 },
-  { browser: "Edge", visitors: 1730 },
-  { browser: "Other", visitors: 900 },
-]
+// Function to generate random data for each browser
+const generateRandomData = () => {
+  const browsers = ["Chrome", "Safari", "Firefox", "Edge", "Other"]
+  return browsers.map((browser) => ({
+    browser,
+    visitors: Math.floor(Math.random() * 3000),
+  }))
+}
+
+// Generate random chart data
+const chartData = generateRandomData()
 
 const chartConfig = {
   visitors: {
@@ -58,7 +61,7 @@ export function Roundbar() {
   const { theme } = useTheme()
   const chartColor = theme === "light" ? "#000000" : "teal"
 
-  const chartData = baseChartData.map(item => ({
+  const randomChartData = chartData.map(item => ({
     ...item,
     fill: chartColor,
   }))
@@ -75,7 +78,7 @@ export function Roundbar() {
           className="mx-auto aspect-square max-h-[250px]"
         >
           <RadialBarChart
-            data={chartData}
+            data={randomChartData}
             startAngle={-90}
             endAngle={380}
             innerRadius={30}
