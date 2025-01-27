@@ -9,7 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import Image from "next/image";
+
 import { BiEdit, BiTrash } from "react-icons/bi";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { useDispatch } from "react-redux";
