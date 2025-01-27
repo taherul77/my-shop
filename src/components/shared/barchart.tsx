@@ -19,15 +19,17 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 
-// Fake data representing new user sign-ups for each month from January to June
-const chartData = [
-  { month: "January", signUps: 186 },
-  { month: "February", signUps: 305 },
-  { month: "March", signUps: 237 },
-  { month: "April", signUps: 273 },
-  { month: "May", signUps: 209 },
-  { month: "June", signUps: 214 },
-]
+// Function to generate random data for each month
+const generateRandomData = () => {
+  const months = ["January", "February", "March", "April", "May", "June"]
+  return months.map((month) => ({
+    month,
+    signUps: Math.floor(Math.random() * 400),
+  }))
+}
+
+// Generate random chart data
+const chartData = generateRandomData()
 
 const chartConfig = {
   signUps: {
