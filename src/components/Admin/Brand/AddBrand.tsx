@@ -68,7 +68,7 @@ const AddBrand: React.FC<AddBrandProps> = ({ modalClose }) => {
       onSubmit={handleSubmit(onSubmit)}
       className="container mx-auto px-3 mt-5 space-y-4"
     >
-      <h2 className="text-xl font-semibold text-primary">Add New Brand</h2>
+      <h2 className="text-xl font-semibold text-primary dark:text-secondary">Add New Brand</h2>
       <div className="grid grid-cols-1 gap-5">
         <Input
           label="Brand Name"
