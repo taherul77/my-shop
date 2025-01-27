@@ -13,7 +13,7 @@ const FormSubmitButton = ({
   return (
     <button
       type="submit"
-      className="w-full bg-primary text-white py-2 px-4 rounded-md hover:bg-primary-dark focus:outline-none flex items-center justify-center mb-10"
+      className="w-full bg-black text-white dark:text-white py-2 px-4 rounded-md hover:bg-primary-dark  focus:outline-none flex items-center justify-center mb-10"
     >
       {status === "pending" ? (
         <>

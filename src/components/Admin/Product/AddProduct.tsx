@@ -164,7 +164,7 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
       onSubmit={handleSubmit(onSubmit)}
       className="container mx-auto px-3 mt-5 space-y-4 max-h[20vh] overflow-y-auto"
     >
-      <h2 className="text-xl font-semibold text-primary">Add New Product</h2>
+      <h2 className="text-xl font-semibold text-primary dark:text-secondary">Add New Product</h2>
       <div className="grid grid-cols-1 gap-5">
         <Input
           label="Product Name"
