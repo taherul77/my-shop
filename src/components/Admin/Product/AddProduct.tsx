@@ -239,8 +239,8 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
               <ReactSelect
                 {...field}
                 isMulti
-                options={colors.map((color) => ({
-                  value: color.id,
+                options={colors?.map((color) => ({
+                  value: color.id.toString(),
                   label: color.name,
                 }))}
                 className="mt-1 block w-full px-3 py-2 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"

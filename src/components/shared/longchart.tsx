@@ -27,100 +27,28 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-// Fake data representing CPU usage over time
-const chartData = [
-  { date: "2024-04-01", desktop: 22, mobile: 15 },
-  { date: "2024-04-02", desktop: 27, mobile: 18 },
-  { date: "2024-04-03", desktop: 17, mobile: 12 },
-  { date: "2024-04-04", desktop: 24, mobile: 26 },
-  { date: "2024-04-05", desktop: 37, mobile: 29 },
-  { date: "2024-04-06", desktop: 30, mobile: 34 },
-  { date: "2024-04-07", desktop: 25, mobile: 18 },
-  { date: "2024-04-08", desktop: 40, mobile: 32 },
-  { date: "2024-04-09", desktop: 15, mobile: 11 },
-  { date: "2024-04-10", desktop: 26, mobile: 19 },
-  { date: "2024-04-11", desktop: 32, mobile: 35 },
-  { date: "2024-04-12", desktop: 29, mobile: 21 },
-  { date: "2024-04-13", desktop: 34, mobile: 38 },
-  { date: "2024-04-14", desktop: 13, mobile: 22 },
-  { date: "2024-04-15", desktop: 12, mobile: 17 },
-  { date: "2024-04-16", desktop: 13, mobile: 19 },
-  { date: "2024-04-17", desktop: 44, mobile: 36 },
-  { date: "2024-04-18", desktop: 36, mobile: 41 },
-  { date: "2024-04-19", desktop: 24, mobile: 18 },
-  { date: "2024-04-20", desktop: 9, mobile: 15 },
-  { date: "2024-04-21", desktop: 13, mobile: 20 },
-  { date: "2024-04-22", desktop: 22, mobile: 17 },
-  { date: "2024-04-23", desktop: 13, mobile: 23 },
-  { date: "2024-04-24", desktop: 38, mobile: 29 },
-  { date: "2024-04-25", desktop: 21, mobile: 25 },
-  { date: "2024-04-26", desktop: 7, mobile: 13 },
-  { date: "2024-04-27", desktop: 38, mobile: 42 },
-  { date: "2024-04-28", desktop: 12, mobile: 18 },
-  { date: "2024-04-29", desktop: 31, mobile: 24 },
-  { date: "2024-04-30", desktop: 45, mobile: 38 },
-  { date: "2024-05-01", desktop: 16, mobile: 22 },
-  { date: "2024-05-02", desktop: 29, mobile: 31 },
-  { date: "2024-05-03", desktop: 24, mobile: 19 },
-  { date: "2024-05-04", desktop: 38, mobile: 42 },
-  { date: "2024-05-05", desktop: 48, mobile: 39 },
-  { date: "2024-05-06", desktop: 49, mobile: 52 },
-  { date: "2024-05-07", desktop: 38, mobile: 30 },
-  { date: "2024-05-08", desktop: 14, mobile: 21 },
-  { date: "2024-05-09", desktop: 23, mobile: 18 },
-  { date: "2024-05-10", desktop: 29, mobile: 33 },
-  { date: "2024-05-11", desktop: 33, mobile: 27 },
-  { date: "2024-05-12", desktop: 19, mobile: 24 },
-  { date: "2024-05-13", desktop: 19, mobile: 16 },
-  { date: "2024-05-14", desktop: 44, mobile: 49 },
-  { date: "2024-05-15", desktop: 47, mobile: 38 },
-  { date: "2024-05-16", desktop: 34, mobile: 40 },
-  { date: "2024-05-17", desktop: 49, mobile: 42 },
-  { date: "2024-05-18", desktop: 31, mobile: 35 },
-  { date: "2024-05-19", desktop: 23, mobile: 18 },
-  { date: "2024-05-20", desktop: 17, mobile: 23 },
-  { date: "2024-05-21", desktop: 8, mobile: 14 },
-  { date: "2024-05-22", desktop: 8, mobile: 12 },
-  { date: "2024-05-23", desktop: 25, mobile: 29 },
-  { date: "2024-05-24", desktop: 29, mobile: 22 },
-  { date: "2024-05-25", desktop: 20, mobile: 25 },
-  { date: "2024-05-26", desktop: 21, mobile: 17 },
-  { date: "2024-05-27", desktop: 42, mobile: 46 },
-  { date: "2024-05-28", desktop: 23, mobile: 19 },
-  { date: "2024-05-29", desktop: 8, mobile: 13 },
-  { date: "2024-05-30", desktop: 34, mobile: 28 },
-  { date: "2024-05-31", desktop: 17, mobile: 23 },
-  { date: "2024-06-01", desktop: 17, mobile: 20 },
-  { date: "2024-06-02", desktop: 47, mobile: 41 },
-  { date: "2024-06-03", desktop: 10, mobile: 16 },
-  { date: "2024-06-04", desktop: 44, mobile: 38 },
-  { date: "2024-06-05", desktop: 8, mobile: 14 },
-  { date: "2024-06-06", desktop: 29, mobile: 25 },
-  { date: "2024-06-07", desktop: 32, mobile: 37 },
-  { date: "2024-06-08", desktop: 38, mobile: 32 },
-  { date: "2024-06-09", desktop: 43, mobile: 48 },
-  { date: "2024-06-10", desktop: 15, mobile: 20 },
-  { date: "2024-06-11", desktop: 9, mobile: 15 },
-  { date: "2024-06-12", desktop: 49, mobile: 42 },
-  { date: "2024-06-13", desktop: 8, mobile: 13 },
-  { date: "2024-06-14", desktop: 42, mobile: 38 },
-  { date: "2024-06-15", desktop: 31, mobile: 35 },
-  { date: "2024-06-16", desktop: 37, mobile: 31 },
-  { date: "2024-06-17", desktop: 47, mobile: 52 },
-  { date: "2024-06-18", desktop: 10, mobile: 17 },
-  { date: "2024-06-19", desktop: 34, mobile: 29 },
-  { date: "2024-06-20", desktop: 40, mobile: 45 },
-  { date: "2024-06-21", desktop: 16, mobile: 21 },
-  { date: "2024-06-22", desktop: 31, mobile: 27 },
-  { date: "2024-06-23", desktop: 48, mobile: 53 },
-  { date: "2024-06-24", desktop: 13, mobile: 18 },
-  { date: "2024-06-25", desktop: 14, mobile: 19 },
-  { date: "2024-06-26", desktop: 43, mobile: 38 },
-  { date: "2024-06-27", desktop: 44, mobile: 49 },
-  { date: "2024-06-28", desktop: 14, mobile: 20 },
-  { date: "2024-06-29", desktop: 10, mobile: 16 },
-  { date: "2024-06-30", desktop: 44, mobile: 40 },
-]
+// Function to generate random data
+const generateRandomData = (endDate: Date, months: number) => {
+  const data = []
+  const end = new Date(endDate)
+  const start = new Date(end)
+  start.setMonth(start.getMonth() - months)
+  const current = new Date(start)
+
+  while (current <= end) {
+    data.push({
+      date: current.toISOString().split("T")[0],
+      desktop: Math.floor(Math.random() * 50),
+      mobile: Math.floor(Math.random() * 50),
+    })
+    current.setDate(current.getDate() + 1)
+  }
+
+  return data
+}
+
+// Generate random chart data from current date to previous 3 months
+const chartData = generateRandomData(new Date(), 3)
 
 const chartConfig = {
   cpuUsage: {
