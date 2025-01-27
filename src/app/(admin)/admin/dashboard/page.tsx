@@ -1,9 +1,9 @@
-import React from "react";
+"use client"
+import React, { useEffect, useState } from "react";
 import { Activity, CreditCard, DollarSign, Users } from "lucide-react";
 import Card, { CardContent, CardProps } from "@/components/shared/Card/Card";
 import SalesCard, { SalesProps } from "@/components/shared/SalesCard/SalesCard";
 import BarChart from "@/components/shared/BarChart/BarChart";
-import Navbar from "@/components/shared/Navbar";
 import { Component } from "@/components/shared/dashboard";
 import { Barchart } from "@/components/shared/barchart";
 import { Roundbar } from "@/components/shared/roundbar";
@@ -53,9 +53,14 @@ const generateRandomUserSalesData = () => {
   }));
 };
 
-const page = () => {
-  const cardData: CardProps[] = generateRandomCardData();
-  const userSalesData: SalesProps[] = generateRandomUserSalesData();
+const Page = () => {
+  const [cardData, setCardData] = useState<CardProps[]>([]);
+  const [userSalesData, setUserSalesData] = useState<SalesProps[]>([]);
+
+  useEffect(() => {
+    setCardData(generateRandomCardData());
+    setUserSalesData(generateRandomUserSalesData());
+  }, []);
 
   return (
     <div className="flex min-h-screen flex-col items-center px-6">
@@ -119,4 +124,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
