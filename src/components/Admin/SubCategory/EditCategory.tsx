@@ -1,14 +1,12 @@
 import React from 'react'
 
 interface EditSubCategoryProps {
-
-    modalClose: (open: boolean) => void;
-  
-  }
+  modalClose: () => void;
+}
 const EditCategory = ({modalClose: _modalClose}:EditSubCategoryProps) => {
   return (
     <div>
-      
+      <button onClick={() => _modalClose()}>Close</button>
     </div>
   )
 }

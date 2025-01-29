@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import multer from "multer";
 import nextConnect from "next-connect";
-
+import { prisma } from "../../../../prisma/client";
 
 type Status = "ACTIVE" | "INACTIVE";
 
