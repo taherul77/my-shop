@@ -2,6 +2,8 @@
 import { cn } from '@/lib/utils'
 import { useTheme } from 'next-themes';
 import React, { ReactNode } from 'react'
+import MainNav from '../MainNav/MainNav';
+
 
 const Layout = ({ children }: { children: ReactNode }) => {
     const { theme } = useTheme();
@@ -12,6 +14,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
           theme === "light" ? "border-Tertiary text-brandColorSecondary" : "border-gray-700 text-white"
         )}
       >
+       <MainNav />
         {children}
       </div>
   )
