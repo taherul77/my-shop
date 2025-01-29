@@ -13,6 +13,8 @@ const data = [
   "/homePage/banner2.jpg",
   "/homePage/banner3.jpg",
   "/homePage/banner4.jpg",
+    "/homePage/banner5.jpg",
+    "/homePage/banner6.webp",
  
 ];
 const HomeBanner = () => {
