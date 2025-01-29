@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { NextResponse, NextRequest } from "next/server";
 import cloudinary from "../../../lib/cloudinaryConfig";
 import { prisma } from "../../../../prisma/client";
@@ -35,7 +34,7 @@ const uploadToCloudinary = async (fileBuffer: Buffer, publicId: string) => {
   });
 };
 
-const runMiddleware = (req: NextRequest, res: any) =>
+const runMiddleware = (req: NextRequest) =>
   new Promise<void>((resolve, reject) => {
     uploadMiddleware(req as any, {} as any, (result: any) => {
       if (result instanceof Error) {
@@ -47,8 +46,7 @@ const runMiddleware = (req: NextRequest, res: any) =>
 
 export async function POST(req: NextRequest) {
   try {
-    const res = new NextResponse();
-    await runMiddleware(req, res);
+    await runMiddleware(req);
 
     const formData = await req.formData();
     const name = formData.get("name") as string;
@@ -93,7 +91,7 @@ export async function POST(req: NextRequest) {
   }
 }
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     const brands = await prisma.brand.findMany({
       include: {

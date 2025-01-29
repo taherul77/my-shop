@@ -1,7 +1,7 @@
-import { prisma } from "../../../../prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import multer from "multer";
-import type { Request, Response } from "express";
+import nextConnect from "next-connect";
+
 
 type Status = "ACTIVE" | "INACTIVE";
 
@@ -10,16 +10,11 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage });
 const uploadMiddleware = upload.single("image");
 
-const runMiddleware = (req: Request, res: Response, fn: (req: Request, res: Response, callback: (result: unknown) => void) => void) => {
-  return new Promise<void>((resolve, reject) => {
-    fn(req, res, (result: unknown) => {
-      if (result instanceof Error) {
-        return reject(result);
-      }
-      resolve();
-    });
-  });
-};
+// Create an instance of nextConnect
+const handler = nextConnect();
+
+// Use multer middleware with nextConnect
+handler.use(uploadMiddleware);
 
 export const config = {
   api: {
@@ -35,8 +30,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Content-Type must be multipart/form-data" }, { status: 400 });
     }
 
-    const res = new NextResponse();
-    await runMiddleware(req as unknown as Request, res as unknown as Response, uploadMiddleware);
+    // Now we can access `req` and `res` via `nextConnect` handler
+    await handler(req);
 
     const formData = await req.formData();
     const name = formData.get("name") as string;

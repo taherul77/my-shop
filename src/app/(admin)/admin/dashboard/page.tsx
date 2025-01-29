@@ -64,7 +64,23 @@ const Page = () => {
 
   return (
     <div className="flex min-h-screen flex-col items-center px-6">
+
+
+
+<section className="grid max-w-7xl w-full grid-cols-1 gap-4 gap-x-8 transition-all sm:grid-cols-2 xl:grid-cols-4 py-4">
+          {cardData.map((data, index) => (
+            <Card
+              key={index}
+              amount={data.amount}
+              discription={data.discription}
+              icon={data.icon}
+              label={data.label}
+            />
+          ))}
+        </section>
+    
       <div className="max-w-7xl w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        
         <div className="col-span-1">
           <Component />
         </div>
@@ -86,17 +102,7 @@ const Page = () => {
       </div>
 
       <div className="max-w-7xl flex flex-col gap-5 w-full py-4">
-        <section className="grid w-full grid-cols-1 gap-4 gap-x-8 transition-all sm:grid-cols-2 xl:grid-cols-4">
-          {cardData.map((data, index) => (
-            <Card
-              key={index}
-              amount={data.amount}
-              discription={data.discription}
-              icon={data.icon}
-              label={data.label}
-            />
-          ))}
-        </section>
+    
         <section className="grid grid-cols-1 gap-4 transition-all lg:grid-cols-2 py-4">
           <CardContent>
             <p className="p-4 font-semibold text-black dark:text-white">Overview</p>
