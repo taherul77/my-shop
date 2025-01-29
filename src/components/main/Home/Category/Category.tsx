@@ -45,8 +45,8 @@ const products = [
 const Category = () => {
 	return (
 		<div className="container max-auto">
-			<div className="flex justify-center lg:justify-start items-center mb-10">
-				<div className="text-xl md:text-3xl lg:text-5xl font-normal text-white">
+			<div className="flex justify-center lg:justify-start items-center py-10">
+				<div className="text-xl md:text-3xl lg:text-5xl font-normal text-black dark:text-white">
 					Our <span className="text-brandColor">E</span>xpertise
 				</div>
 			</div>

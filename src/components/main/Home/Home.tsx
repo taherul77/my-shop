@@ -13,9 +13,9 @@ const Home = () => {
         <div className="lg:hidden block">
           <ResponsiveHomePage />
         </div>
-        <div className="hidden lg:block">
-				<Category />
-			</div>
+        <div className="hidden lg:block ">
+          <Category />
+        </div>
       </div>
       <div className="flex flex-col items-center px-6">
         <div className=" max-w-7xl flex flex-col gap-5 w-full ">
