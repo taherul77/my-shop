@@ -1,29 +1,41 @@
-"use client"
-import React, { useState } from 'react'
-import { HoveredLink, Menu, MenuItem, ProductItem } from "@/components/ui/navbar-menu";
-import { cn } from '@/lib/utils';
+"use client";
+import React, { useState } from "react";
+import {
+  HoveredLink,
+  Menu,
+  MenuItem,
+  ProductItem,
+} from "@/components/ui/navbar-menu";
+import { cn } from "@/lib/utils";
 
 const MainNav = () => {
   return (
     <div className="relative w-full flex items-center justify-center">
       <Navbar className="top-4" />
-   
     </div>
-  )
-}
+  );
+};
 
-export default MainNav
+export default MainNav;
 function Navbar({ className }: { className?: string }) {
-    const [active, setActive] = useState<string | null>(null);
-    return (
-      <div
-        className={cn("fixed top-10 inset-x-0 max-w-7xl w-full mx-auto z-50", className)}
-      >
-        <Menu setActive={setActive}>
+  const [active, setActive] = useState<string | null>(null);
+  return (
+    <div
+      className={cn(
+        "fixed top-10 inset-x-0 max-w-7xl w-full mx-auto z-50",
+        className
+      )}
+    >
+      <Menu setActive={setActive}>
+        <div>hi</div>
+        
+        <div className="flex justify-between items-center gap-4">
           <MenuItem setActive={setActive} active={active} item="Services">
             <div className="flex flex-col space-y-4 text-sm">
               <HoveredLink href="/web-dev">Web Development</HoveredLink>
-              <HoveredLink href="/interface-design">Interface Design</HoveredLink>
+              <HoveredLink href="/interface-design">
+                Interface Design
+              </HoveredLink>
               <HoveredLink href="/seo">Search Engine Optimization</HoveredLink>
               <HoveredLink href="/branding">Branding</HoveredLink>
             </div>
@@ -64,7 +76,11 @@ function Navbar({ className }: { className?: string }) {
               <HoveredLink href="/enterprise">Enterprise</HoveredLink>
             </div>
           </MenuItem>
-        </Menu>
-      </div>
-    );
-  }
+        </div>
+       <div className="flex justify-between items-center gap-4">
+by
+        </div>
+      </Menu>
+    </div>
+  );
+}
