@@ -1,11 +1,12 @@
 import React from "react";
-
+import HomeBanner from "./HomeBanner/HomeBanner";
 const Home = () => {
   return (
-    <div className="flex min-h-screen flex-col items-center px-6">
-      <div className=" max-w-7xl flex flex-col gap-5 w-full py-4">
-        Home page
+    <div className="flex flex-col gap-20 ">
+      <div className="hidden lg:block">
+        <HomeBanner />
       </div>
+      
     </div>
   );
 };

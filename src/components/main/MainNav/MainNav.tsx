@@ -28,7 +28,7 @@ function Navbar({ className }: { className?: string }) {
     >
       <Menu setActive={setActive}>
         <div>hi</div>
-        
+
         <div className="flex justify-between items-center gap-4">
           <MenuItem setActive={setActive} active={active} item="Services">
             <div className="flex flex-col space-y-4 text-sm">
@@ -77,8 +77,8 @@ function Navbar({ className }: { className?: string }) {
             </div>
           </MenuItem>
         </div>
-       <div className="flex justify-between items-center gap-4">
-by
+        <div className="flex justify-between items-center gap-4">
+            by
         </div>
       </Menu>
     </div>
