@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import { Activity, CreditCard, DollarSign, Users } from "lucide-react";
 import Card, { CardContent, CardProps } from "@/components/shared/Card/Card";
@@ -43,9 +43,21 @@ const generateRandomCardData = () => {
 
 // Function to generate random user sales data
 const generateRandomUserSalesData = () => {
-  const names = ["Olivia Martin", "Jackson Lee", "Isabella Nguyen", "William Kim", "Sofia Davis"];
-  const emails = ["olivia.martin@email.com", "jackson.lee@email.com", "isabella.nguyen@email.com", "william.kim@email.com", "sofia.davis@email.com"];
-  
+  const names = [
+    "Olivia Martin",
+    "Jackson Lee",
+    "Isabella Nguyen",
+    "William Kim",
+    "Sofia Davis",
+  ];
+  const emails = [
+    "olivia.martin@email.com",
+    "jackson.lee@email.com",
+    "isabella.nguyen@email.com",
+    "william.kim@email.com",
+    "sofia.davis@email.com",
+  ];
+
   return names.map((name, index) => ({
     name,
     email: emails[index],
@@ -64,23 +76,19 @@ const Page = () => {
 
   return (
     <div className="flex min-h-screen flex-col items-center px-6">
+      <section className="grid max-w-7xl w-full grid-cols-1 gap-4 gap-x-8 transition-all sm:grid-cols-2 xl:grid-cols-4 py-4">
+        {cardData.map((data, index) => (
+          <Card
+            key={index}
+            amount={data.amount}
+            discription={data.discription}
+            icon={data.icon}
+            label={data.label}
+          />
+        ))}
+      </section>
 
-
-
-<section className="grid max-w-7xl w-full grid-cols-1 gap-4 gap-x-8 transition-all sm:grid-cols-2 xl:grid-cols-4 py-4">
-          {cardData.map((data, index) => (
-            <Card
-              key={index}
-              amount={data.amount}
-              discription={data.discription}
-              icon={data.icon}
-              label={data.label}
-            />
-          ))}
-        </section>
-    
       <div className="max-w-7xl w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-        
         <div className="col-span-1">
           <Component />
         </div>
@@ -102,10 +110,11 @@ const Page = () => {
       </div>
 
       <div className="max-w-7xl flex flex-col gap-5 w-full py-4">
-    
         <section className="grid grid-cols-1 gap-4 transition-all lg:grid-cols-2 py-4">
           <CardContent>
-            <p className="p-4 font-semibold text-black dark:text-white">Overview</p>
+            <p className="p-4 font-semibold text-black dark:text-white">
+              Overview
+            </p>
             <BarChart />
           </CardContent>
           <CardContent className="flex justify-between gap-4">
