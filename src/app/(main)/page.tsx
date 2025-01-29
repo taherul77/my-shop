@@ -1,15 +1,12 @@
-import { Button } from '@/components/ui/button'
-import React from 'react'
+import Home from "@/components/main/Home/Home";
+import React from "react";
 
 const MainPage = () => {
   return (
-    <div >
-      <Button
-        color="primary"
-        variant="default"
-       >hi</Button>
-    </div>
-  )
-}
+    <>
+      <Home></Home>
+    </>
+  );
+};
 
-export default MainPage
+export default MainPage;
