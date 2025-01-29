@@ -9,7 +9,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <div
       className={cn(
-        " flex-1 rounded-tl-2xl  bg-backgroundColor dark:bg-black dark:bg-[url('/bg.png')] bg-cover bg-center flex flex-col w-full h-full ",
+        " flex-1 rounded-tl-2xl min-h-screen  bg-white dark:bg-black dark:bg-[url('/bg.png')] bg-cover bg-center flex flex-col w-full h-full ",
         theme === "light"
           ? "border-Tertiary text-brandColorSecondary"
           : "border-gray-700 text-white"

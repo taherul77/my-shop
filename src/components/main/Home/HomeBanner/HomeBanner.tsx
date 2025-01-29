@@ -8,8 +8,10 @@ import {
 } from "@/components/ui/homePageCarousel";
 import Image from "next/image";
 import Link from "next/link";
+import ColourfulText from "@/components/ui/colourful-text";
 
 const data = [
+  "/homePage/banner1.jpg",
   "/homePage/banner2.jpg",
   "/homePage/banner3.jpg",
   "/homePage/banner4.jpg",
@@ -62,8 +64,9 @@ const HomeBanner = () => {
           <div className="container h-full flex justify-start items-start">
             <div className="flex flex-col gap-10 mt-40">
               <div>
+             
                 <div className="text-7xl font-bold text-backgroundColor">
-                  Designs That Define <br />
+                  Designs <ColourfulText text="That Define" /> <br />
                   Your Space
                 </div>
               </div>
