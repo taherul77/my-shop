@@ -9,7 +9,7 @@ import Input from "@/components/shared/Input";
 import FormSubmitButton from "@/components/shared/FormSubmitButton";
 
 interface EditCategoryProps {
-  modalClose: (open: boolean) => void;
+  modalClose: () => void;
 }
 
 const EditCategory: React.FC<EditCategoryProps> = ({ modalClose }) => {
@@ -81,7 +81,7 @@ const EditCategory: React.FC<EditCategoryProps> = ({ modalClose }) => {
         };
 
         dispatch(handleEditData(serializedResult));
-        modalClose(false); // Close the modal after successful submission
+        modalClose(); // Close the modal after successful submission
       } else {
         console.error("Failed to update category:", response.statusText);
       }

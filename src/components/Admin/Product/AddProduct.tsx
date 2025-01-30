@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+
 import FormSubmitButton from "@/components/shared/FormSubmitButton";
 import Input from "@/components/shared/Input";
 import Select from "@/components/shared/Select";
-import { productSchema } from "./Schema"; // Assuming productSchema is a valid yup schema
+
 import { Category, SubCategory, Brand, Color } from "@prisma/client";
 import ReactSelect from "react-select";
 
@@ -21,7 +21,7 @@ interface ProductFormData {
 }
 
 interface AddProductProps {
-  modalClose: (open: boolean) => void;
+  modalClose: () => void;
 }
 
 const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
@@ -38,9 +38,7 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
     watch,
     reset,
     formState: { errors },
-  } = useForm<ProductFormData>({
-    resolver: yupResolver(productSchema),
-  });
+  } = useForm<ProductFormData>();
 
   const selectedCategoryId = watch("categoryId");
 
@@ -144,7 +142,7 @@ const AddProduct: React.FC<AddProductProps> = ({ modalClose }) => {
 
       if (response.ok) {
         await response.json();
-        modalClose(false);
+        modalClose();
         reset();
       } else {
         console.error("Failed to add product. Status:", response.status);

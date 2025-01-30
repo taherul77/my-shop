@@ -987,7 +987,7 @@
   dependencies:
     "@tanstack/table-core" "8.20.5"
 
-"@tanstack/table-core@8.20.5":
+"@tanstack/table-core@8.20.5", "@tanstack/table-core@^8.20.5":
   version "8.20.5"
   resolved "https://registry.npmjs.org/@tanstack/table-core/-/table-core-8.20.5.tgz"
   integrity sha512-P9dF7XbibHph2PFRz8gfBKEXEY/HJPOhym8CHmjF8y3q5mWpKx9xtZapXQUWCgkqvsK0R46Azuz+VaxD4Xl+Tg==
@@ -1162,12 +1162,19 @@
   resolved "https://registry.npmjs.org/@types/react-dom/-/react-dom-19.0.3.tgz"
   integrity sha512-0Knk+HJiMP/qOZgMyNFamlIjw9OFCsyC2ZbigmEEyXXixgre6IQpm/4V+r3qH4GC1JPvRJKInw+on2rV6YZLeA==
 
+"@types/react-lottie@^1.2.10":
+  version "1.2.10"
+  resolved "https://registry.npmjs.org/@types/react-lottie/-/react-lottie-1.2.10.tgz"
+  integrity sha512-rCd1p3US4ELKJlqwVnP0h5b24zt5p9OCvKUoNpYExLqwbFZMWEiJ6EGLMmH7nmq5V7KomBIbWO2X/XRFsL0vCA==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-transition-group@^4.4.0":
   version "4.4.12"
   resolved "https://registry.npmjs.org/@types/react-transition-group/-/react-transition-group-4.4.12.tgz"
   integrity sha512-8TV6R3h2j7a91c+1DXdJi3Syo69zzIZbz7Lg5tORM5LEJG7X/E6a1V3drRyBRZq7/utz7A+c4OgYLiLcYGHG6w==
 
-"@types/react@^19":
+"@types/react@*", "@types/react@^19":
   version "19.0.7"
   resolved "https://registry.npmjs.org/@types/react/-/react-19.0.7.tgz"
   integrity sha512-MoFsEJKkAtZCrC1r6CM8U22GzhG7u2Wir8ons/aCKH6MBdD1ibV24zOSSkdZVUKqN5i396zG5VKLYZ3yaUZdLA==
@@ -1945,7 +1952,7 @@ dom-helpers@^5.0.1:
 
 dotted-map@^2.2.3:
   version "2.2.3"
-  resolved "https://registry.yarnpkg.com/dotted-map/-/dotted-map-2.2.3.tgz#04bcdceed4aa3877564d88344e0726d47b85480b"
+  resolved "https://registry.npmjs.org/dotted-map/-/dotted-map-2.2.3.tgz"
   integrity sha512-8hyOOHHLLVCcCisM3yb9hqp+3bJ7TSMcr1SfrUw8Wxp5UMqih35jIvUyagweCooJbz/EH1nC9GGuPysh7+YlAg==
   dependencies:
     "@turf/boolean-point-in-polygon" "^6.0.1"
@@ -2490,7 +2497,7 @@ framer-motion@^11.18.1:
 
 framer-motion@^12.0.6:
   version "12.0.6"
-  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-12.0.6.tgz#4ec8b9225ead4d0d7d4ff00ade6e76a83e6d0c99"
+  resolved "https://registry.npmjs.org/framer-motion/-/framer-motion-12.0.6.tgz"
   integrity sha512-LmrXbXF6Vv5WCNmb+O/zn891VPZrH7XbsZgRLBROw6kFiP+iTK49gxTv2Ur3F0Tbw6+sy9BVtSqnWfMUpH+6nA==
   dependencies:
     motion-dom "^12.0.0"
@@ -3218,7 +3225,7 @@ motion-utils@^12.0.0:
 
 motion@^12.0.6:
   version "12.0.6"
-  resolved "https://registry.yarnpkg.com/motion/-/motion-12.0.6.tgz#65dfd621350c8ec46e15692d7e32c01b632ca9ff"
+  resolved "https://registry.npmjs.org/motion/-/motion-12.0.6.tgz"
   integrity sha512-AzCEO0+//mPlcGiL9JaVwjddHY1cbbnvz5upHL0toqQwsPCs+hiKJ0XG5jfG0XwDtBbiSXdEqW/UTmGLwkVQ6A==
   dependencies:
     framer-motion "^12.0.6"

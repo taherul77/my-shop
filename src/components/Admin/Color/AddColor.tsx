@@ -1,13 +1,13 @@
 import React from 'react'
 interface AddColourProps {
-  modalClose: (open: boolean) => void;
+  modalClose: () => void;
 }
 
 const AddColor = ({modalClose}:AddColourProps) => {
   return (
     <div>
       AddColor
-      <button onClick={() => modalClose(false)}>Close</button>
+      <button onClick={() => modalClose()}>Close</button>
     </div>
   )
 }

@@ -12,8 +12,8 @@ import {
 
 import { BiEdit, BiTrash } from "react-icons/bi";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
-import { useDispatch } from "react-redux";
-import { handleEditData } from "@/redux/Reducer/MainSlice";
+// import { useDispatch } from "react-redux";
+// import { handleEditData } from "@/redux/Reducer/MainSlice";
 import AddColor from "./AddColor";
 import EditColor from "./EditColor";
 import { Status } from "@prisma/client"; // Import Status enum from Prisma
@@ -32,7 +32,7 @@ interface Props {
 }
 
 const ColorComponent = ({ data }: Props) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const columns: ColumnDef<Color>[] = [
     {
@@ -86,16 +86,12 @@ const ColorComponent = ({ data }: Props) => {
               className="hover:text-brandColor rounded-md text-black dark:text-white dark:hover:text-brandColor"
               onClick={() => {
                 setEditModalOpen(true);
-                const serializableData = {
-                  ...data,
-                  createdAt: data.createdAt
-                    ? new Date(data.createdAt).toISOString()
-                    : null,
-                  updatedAt: data.updatedAt
-                    ? new Date(data.updatedAt).toISOString()
-                    : null,
-                };
-                dispatch(handleEditData(serializableData));
+                // const serializableData = {
+                //   ...data,
+                //   createdAt: data.createdAt ? new Date(data.createdAt) : undefined,
+                //   updatedAt: data.updatedAt ? new Date(data.updatedAt) : undefined,
+                // };
+                // dispatch(handleEditData(serializableData));
               }}
             >
               <BiEdit size={21} />
@@ -164,7 +160,7 @@ const ColorComponent = ({ data }: Props) => {
             <VisuallyHidden>Add Color</VisuallyHidden>
           </DialogTitle>
           <DialogHeader>
-            <AddColor modalClose={setAddModalOpen} />
+            <AddColor modalClose={() => setAddModalOpen(false)} />
           </DialogHeader>
         </DialogContent>
       </Dialog>
@@ -175,7 +171,7 @@ const ColorComponent = ({ data }: Props) => {
             <VisuallyHidden>Edit Color</VisuallyHidden>
           </DialogTitle>
           <DialogHeader>
-            <EditColor modalClose={setEditModalOpen} />
+            <EditColor modalClose={() => setEditModalOpen(false)} />
           </DialogHeader>
         </DialogContent>
       </Dialog>

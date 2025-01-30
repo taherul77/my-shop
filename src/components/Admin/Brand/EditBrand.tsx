@@ -1,12 +1,12 @@
 import React from 'react'
 interface EditBrandProps {
-  modalClose: (open: boolean) => void;
+  modalClose: () => void;
 }
 
 const EditBrand = ({modalClose}:EditBrandProps) => {
   return (
     <div>
-      <button onClick={() => modalClose(false)}>Close</button>
+      <button onClick={() => modalClose()}>Close</button>
     </div>
   )
 }

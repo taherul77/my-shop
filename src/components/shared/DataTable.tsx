@@ -34,7 +34,7 @@ type DataTableProps<T> = {
   columns: ColumnDef<T>[];
   searchFieldName: keyof T;
   tableName: string;
-  setAddModalOpen: (open: boolean) => void;
+  setAddModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export function DataTable<T>({ data, columns, searchFieldName, tableName, setAddModalOpen }: DataTableProps<T>) {

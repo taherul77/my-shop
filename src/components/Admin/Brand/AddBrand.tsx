@@ -7,7 +7,7 @@ import Select from "@/components/shared/Select";
 import { brandSchema } from "./brandSchema";
 
 interface AddBrandProps {
-  modalClose: (open: boolean) => void;
+  modalClose: () => void;
 }
 
 const AddBrand: React.FC<AddBrandProps> = ({ modalClose }) => {
@@ -49,7 +49,7 @@ const AddBrand: React.FC<AddBrandProps> = ({ modalClose }) => {
       });
 
       if (response.ok) {
-        modalClose(false);
+        modalClose();
         reset();
       } else {
         console.error("Failed to add brand. Status:", response.status);

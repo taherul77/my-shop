@@ -17,9 +17,8 @@ import { handleEditData } from "@/redux/Reducer/MainSlice";
 import AddProduct from "./AddProduct";
 import EditProduct from "./EditProduct";
 
-
 interface ProductData {
-  id: number ;
+  id: number;
   name: string;
   description: string | null;
   price: number;
@@ -27,10 +26,9 @@ interface ProductData {
   createdAt?: Date;
   updatedAt?: Date;
   imagePath: string;
-   categoryId: number; 
-   subCategoryId: number | null;
-    brandId: number | null;
-
+  categoryId: number;
+  subCategoryId: number | null;
+  brandId: number | null;
 }
 
 interface Props {
@@ -38,7 +36,6 @@ interface Props {
 }
 
 const ProductComponent = ({ data }: Props) => {
-
   const dispatch = useDispatch();
 
   const columns: ColumnDef<ProductData>[] = [
@@ -124,12 +121,9 @@ const ProductComponent = ({ data }: Props) => {
                 setEditModalOpen(true);
                 const serializableData = {
                   ...data,
-                  createdAt: data.createdAt
-                    ? new Date(data.createdAt).toISOString()
-                    : null,
-                  updatedAt: data.updatedAt
-                    ? new Date(data.updatedAt).toISOString()
-                    : null,
+                  id: Number(data.id),
+                  createdAt: data.createdAt ? new Date(data.createdAt) : undefined,
+                  updatedAt: data.updatedAt ? new Date(data.updatedAt) : undefined,
                 };
                 dispatch(handleEditData(serializableData));
               }}
@@ -154,17 +148,8 @@ const ProductComponent = ({ data }: Props) => {
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  interface ProductData {
-    id: string;
-    name: string;
-    description: string;
-    price: number;
-    status: boolean;
-    createdAt?: string;
-    updatedAt?: string;
-  }
 
-  const [dataToDelete, setDataToDelete] = useState<ProductData | null>(null); 
+  const [dataToDelete, setDataToDelete] = useState<ProductData | null>(null);
 
   const handleDelete = async () => {
     if (dataToDelete) {
@@ -211,7 +196,7 @@ const ProductComponent = ({ data }: Props) => {
             <VisuallyHidden>Add Category</VisuallyHidden>
           </DialogTitle>
           <DialogHeader>
-            <AddProduct modalClose={setAddModalOpen} />
+            <AddProduct modalClose={() => setAddModalOpen(false)} />
           </DialogHeader>
         </DialogContent>
       </Dialog>
@@ -222,7 +207,7 @@ const ProductComponent = ({ data }: Props) => {
             <VisuallyHidden>Edit Category</VisuallyHidden>
           </DialogTitle>
           <DialogHeader>
-            <EditProduct modalClose={setEditModalOpen} />
+            <EditProduct modalClose={() => setEditModalOpen(false)} />
           </DialogHeader>
         </DialogContent>
       </Dialog>

@@ -1,12 +1,18 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface EditData {
-  // Define the properties of editData here
+export interface EditData {
   id: number;
   name: string;
-  // Add other properties as needed
+  description: string | null;
+  price: number;
+  status: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  imagePath: string;
+  categoryId: number;
+  subCategoryId: number | null;
+  brandId: number | null;
 }
-
 interface DeleteData {
   // Define the properties of deleteData here
   id: number;

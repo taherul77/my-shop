@@ -5,11 +5,11 @@ import loading from "../../../public/lottie/loading.json";
 const MiniLoader = () => {
   return (
     <div className="flex justify-center items-center">
-      <Lottie
-        animationData={loading}
-        loop={true}
-        className="w-[25px] h-[25px]"
-      />
+      <div className="w-[25px] h-[25px]">
+        <Lottie
+          options={{ animationData: loading, loop: true }}
+        />
+      </div>
     </div>
   );
 };

@@ -1,34 +1,30 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import FormSubmitButton from "@/components/shared/FormSubmitButton";
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { schema } from "./Schema";
 import Input from "@/components/shared/Input";
-import Select from "@/components/shared/Select"; // Assuming you have a Select component
+// import Select from "@/components/shared/Select"; // Assuming you have a Select component
 
 
 interface AddCategoryProps {
 
-  modalClose: (open: boolean) => void;
+  modalClose: () => void;
 
 }
 
 const AddCategory: React.FC<AddCategoryProps> = ({ modalClose }) => {
-  interface Category {
-    id: number;
-    name: string;
-  }
   
  
 
   const {
-    control,
+    // control,
     register,
     handleSubmit,
     reset,
-    watch,
-    setValue,
+    // watch,
+    // setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -56,9 +52,9 @@ const AddCategory: React.FC<AddCategoryProps> = ({ modalClose }) => {
       });
 
       if (response.ok) {
-        const result = await response.json();
+        await response.json();
        
-        modalClose(false); 
+        modalClose(); 
         reset();
       } else {
         console.error('Failed to add category:', response.statusText);

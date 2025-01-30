@@ -1,13 +1,13 @@
 import React from 'react'
 interface EditColourProps {
-  modalClose: (open: boolean) => void;
+  modalClose: () => void;
 }
 
 const EditColor = ({modalClose}:EditColourProps) => {
   return (
     <div>
       EditColor
-      <button onClick={() => modalClose(false)}>Close</button>
+      <button onClick={() => modalClose()}>Close</button>
     </div>
   )
 }

@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import FormSubmitButton from "@/components/shared/FormSubmitButton";
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useEffect, useState } from "react";
 import { schema } from "./Schema";
@@ -10,7 +10,7 @@ import Select from "@/components/shared/Select"; // Assuming you have a Select c
 
 interface AddCategoryProps {
 
-  modalClose: (open: boolean) => void;
+  modalClose: () => void;
 
 }
 
@@ -38,12 +38,12 @@ const AddCategory: React.FC<AddCategoryProps> = ({ modalClose }) => {
   }, []);
 
   const {
-    control,
+    // control,
     register,
     handleSubmit,
     reset,
-    watch,
-    setValue,
+    // watch,
+    // setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -52,7 +52,7 @@ const AddCategory: React.FC<AddCategoryProps> = ({ modalClose }) => {
   interface FormData {
     name: string;
     title: string;
-    parentId?: number;
+    parentId?: number | string;
   }
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
@@ -71,9 +71,8 @@ const AddCategory: React.FC<AddCategoryProps> = ({ modalClose }) => {
       });
 
       if (response.ok) {
-        const result = await response.json();
      
-        modalClose(false); 
+        modalClose(); 
         reset();
       } else {
         console.error('Failed to add category:', response.statusText);
@@ -121,10 +120,10 @@ const AddCategory: React.FC<AddCategoryProps> = ({ modalClose }) => {
             register={register}
             error={errors.parentId}
             options={categories.map((category) => ({
-              value: category.id,
+              value: category.id.toString(),
+              // value: category.id,
               label: category.name,
             }))}
-            placeholder="Select parent category"
           />
         </div>
         <FormSubmitButton

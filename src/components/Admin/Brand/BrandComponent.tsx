@@ -12,8 +12,8 @@ import {
 import Image from "next/image";
 import { BiEdit, BiTrash } from "react-icons/bi";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
-import { useDispatch } from "react-redux";
-import { handleEditData } from "@/redux/Reducer/MainSlice";
+// import { useDispatch } from "react-redux";
+// import { handleEditData } from "@/redux/Reducer/MainSlice";
 import AddBrand from "./AddBrand";
 import EditBrand from "./EditBrand";
 
@@ -31,7 +31,7 @@ interface Props {
 }
 
 const BrandComponent = ({ data }: Props) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const columns: ColumnDef<BrandData>[] = [
     {
@@ -107,16 +107,16 @@ const BrandComponent = ({ data }: Props) => {
               className="hover:text-brandColor rounded-md text-black dark:text-white dark:hover:text-brandColor"
               onClick={() => {
                 setEditModalOpen(true);
-                const serializableData = {
-                  ...data,
-                  createdAt: data.createdAt
-                    ? new Date(data.createdAt).toISOString()
-                    : null,
-                  updatedAt: data.updatedAt
-                    ? new Date(data.updatedAt).toISOString()
-                    : null,
-                };
-                dispatch(handleEditData(serializableData));
+                // const serializableData = {
+                //   ...data,
+                //   createdAt: data.createdAt
+                //     ? new Date(data.createdAt).toISOString()
+                //     : null,
+                //   updatedAt: data.updatedAt
+                //     ? new Date(data.updatedAt).toISOString()
+                //     : null,
+                // };
+                // dispatch(handleEditData(serializableData));
               }}
             >
               <BiEdit size={21} />
@@ -187,7 +187,7 @@ const BrandComponent = ({ data }: Props) => {
             <VisuallyHidden>Add Brand</VisuallyHidden>
           </DialogTitle>
           <DialogHeader>
-            <AddBrand modalClose={setAddModalOpen} />
+            <AddBrand modalClose={() => setAddModalOpen(false)} />
           </DialogHeader>
         </DialogContent>
       </Dialog>
@@ -198,7 +198,7 @@ const BrandComponent = ({ data }: Props) => {
             <VisuallyHidden>Edit Brand</VisuallyHidden>
           </DialogTitle>
           <DialogHeader>
-            <EditBrand modalClose={setEditModalOpen} />
+            <EditBrand modalClose={() => setEditModalOpen(false)} />
           </DialogHeader>
         </DialogContent>
       </Dialog>

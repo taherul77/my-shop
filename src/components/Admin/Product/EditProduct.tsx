@@ -1,11 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+// import { yupResolver } from "@hookform/resolvers/yup";
 import FormSubmitButton from "@/components/shared/FormSubmitButton";
 import Input from "@/components/shared/Input";
 import Select from "@/components/shared/Select";
-import { productSchema } from "./Schema";
+// import { productSchema } from "./Schema";
 
 // Define or import the Category type
 interface Category {
@@ -19,16 +19,16 @@ interface SubCategory {
   name: string;
   categoryId: number;
 }
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "@/redux/store";
-import { handleEditData } from "@/redux/Reducer/MainSlice";
+import { useSelector,  } from "react-redux";
+import { RootState } from "@/redux/Store/store";
+// import { handleEditData } from "@/redux/Reducer/MainSlice";
 
 interface EditProductProps {
-  modalClose: (open: boolean) => void;
+  modalClose: () => void;
 }
 
 const EditProduct: React.FC<EditProductProps> = ({ modalClose }) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const [categories, setCategories] = useState<Category[]>([]);
   const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
   const [loading, setLoading] = useState(false);
@@ -49,24 +49,14 @@ const EditProduct: React.FC<EditProductProps> = ({ modalClose }) => {
   }
 
   const {
-    control,
+    // control,
     register,
     handleSubmit,
     watch,
     reset,
     setValue,
     formState: { errors },
-  } = useForm<ProductFormData>({
-    resolver: yupResolver(productSchema),
-    defaultValues: {
-      name: selectedProduct?.name || "",
-      description: selectedProduct?.description || "",
-      price: selectedProduct?.price || 0,
-      categoryId: selectedProduct?.categoryId || undefined,
-      subCategoryId: selectedProduct?.subCategoryId || undefined,
-      status: selectedProduct?.status || "ACTIVE",
-    },
-  });
+  } = useForm<ProductFormData>();
 
   const selectedCategoryId = watch("categoryId");
 
@@ -119,7 +109,9 @@ const EditProduct: React.FC<EditProductProps> = ({ modalClose }) => {
     setLoading(true);
 
     const formData = new FormData();
-    formData.append("id", selectedProduct.id); 
+    if (selectedProduct) {
+      formData.append("id", selectedProduct.id.toString());
+    }
     formData.append("name", data.name);
     formData.append("description", data.description);
     formData.append("price", data.price.toString());
@@ -134,17 +126,23 @@ const EditProduct: React.FC<EditProductProps> = ({ modalClose }) => {
     }
 
     try {
+      if (!selectedProduct) {
+        console.error("No product selected for editing.");
+        setLoading(false);
+        return;
+      }
+
       const response = await fetch(`/api/product/${selectedProduct.id}`, {
         method: "PUT",
         body: formData,
       });
 
       if (response.ok) {
-        const result = await response.json();
+        await response.json();
         
-        modalClose(false);
+        modalClose();
         reset();
-        dispatch(handleEditData(null)); // Clear the edit data in Redux store
+        // dispatch(handleEditData(null)); // Clear the edit data in Redux store
       } else {
         console.error("Failed to update product. Status:", response.status);
       }
@@ -194,7 +192,7 @@ const EditProduct: React.FC<EditProductProps> = ({ modalClose }) => {
           
           register={register}
           options={categories.map((category) => ({
-            value: category.id,
+            value: category.id.toString(),
             label: category.name,
           }))}
         />
@@ -203,7 +201,7 @@ const EditProduct: React.FC<EditProductProps> = ({ modalClose }) => {
           name="subCategoryId"
           register={register}
           options={subCategories.map((subCategory) => ({
-            value: subCategory.id,
+            value: subCategory.id.toString(),
             label: subCategory.name,
           }))}
         />

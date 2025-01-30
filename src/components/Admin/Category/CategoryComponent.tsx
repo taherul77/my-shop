@@ -10,8 +10,8 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
-import { useDispatch } from "react-redux";
-import { handleEditData } from "@/redux/Reducer/MainSlice";
+// import { useDispatch } from "react-redux";
+// import { handleEditData } from "@/redux/Reducer/MainSlice";
 import AddCategory from "./AddCategory";
 import EditCategory from "./EditCategory";
 import { BiEdit, BiTrash } from "react-icons/bi";
@@ -31,7 +31,7 @@ interface CategoryComponentProps {
 }
 
 const CategoryComponent = ({ data }: CategoryComponentProps) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const columns: ColumnDef<Category>[] = [
     {
       header: "Sl No",
@@ -84,16 +84,16 @@ const CategoryComponent = ({ data }: CategoryComponentProps) => {
               className="hover:text-brandColor rounded-md text-black dark:text-white dark:hover:text-brandColor"
               onClick={() => {
                 setEditModalOpen(true);
-                const serializableData = {
-                  ...data,
-                  createdAt: data.createdAt
-                    ? new Date(data.createdAt).toISOString()
-                    : null,
-                  updatedAt: data.updatedAt
-                    ? new Date(data.updatedAt).toISOString()
-                    : null,
-                };
-                dispatch(handleEditData(serializableData));
+                // const serializableData = {
+                //   ...data,
+                //   createdAt: data.createdAt
+                //     ? new Date(data.createdAt).toISOString()
+                //     : null,
+                //   updatedAt: data.updatedAt
+                //     ? new Date(data.updatedAt).toISOString()
+                //     : null,
+                // };
+                // dispatch(handleEditData(serializableData));
               }}
             >
               <BiEdit size={21} />
@@ -161,7 +161,7 @@ const CategoryComponent = ({ data }: CategoryComponentProps) => {
             <VisuallyHidden>Add Category</VisuallyHidden>
           </DialogTitle>
           <DialogHeader>
-            <AddCategory modalClose={setAddModalOpen} />
+            <AddCategory modalClose={() => setAddModalOpen(false)} />
           </DialogHeader>
         </DialogContent>
       </Dialog>
