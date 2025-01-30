@@ -14,7 +14,7 @@ const Home = () => {
         <div className="lg:hidden block">
           <ResponsiveHomePage />
         </div>
-        <div className="hidden lg:block ">
+        <div className="hidden lg:block  py-10">
           <Category />
         </div>
 
