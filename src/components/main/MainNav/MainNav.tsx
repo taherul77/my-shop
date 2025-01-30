@@ -1,11 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import {
-  HoveredLink,
-  Menu,
-  MenuItem,
-  ProductItem,
-} from "@/components/ui/navbar-menu";
+import { HoveredLink, Menu, MenuItem } from "@/components/ui/navbar-menu";
 import { cn } from "@/lib/utils";
 
 const MainNav = () => {
@@ -56,9 +51,7 @@ function Navbar({ className }: { className?: string }) {
             <HoveredLink href="/contact">Contact Us</HoveredLink>
           </div>
         </div>
-        <div className="flex justify-between items-center gap-4">
-          by
-        </div>
+        <div className="flex justify-between items-center gap-4">by</div>
       </Menu>
     </div>
   );
