@@ -63,7 +63,7 @@ const EditProduct: React.FC<EditProductProps> = ({ modalClose }) => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/category");
+        const response = await fetch("/api/category");
         const data = await response.json();
         setCategories(data);
      

@@ -124,7 +124,7 @@ const ColorComponent = ({ data }: Props) => {
           isSubCategory: true,
         };
 
-        const response = await fetch("http://localhost:3000/api/brand", {
+        const response = await fetch("/api/brand", {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
