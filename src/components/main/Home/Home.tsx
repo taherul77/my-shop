@@ -3,6 +3,7 @@ import HomeBanner from "./HomeBanner/HomeBanner";
 import ResponsiveHomePage from "./HomeBanner/ResponsiveHomePage";
 
 import Category from "./Category/Category";
+import ResponsiveCategory from "./ResponsiveCategory/ResponsiveCategory";
 const Home = () => {
   return (
     <>
@@ -16,8 +17,11 @@ const Home = () => {
         <div className="hidden lg:block ">
           <Category />
         </div>
+
+        <div className="lg:hidden md:block">
+          <ResponsiveCategory />
+        </div>
       </div>
-      
     </>
   );
 };
