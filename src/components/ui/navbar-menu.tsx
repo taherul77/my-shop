@@ -19,7 +19,7 @@ export const MenuItem = ({
   item,
   children,
 }: {
-  setActive: () => void;
+  setActive: (active: string | null) => void;
   active: string | null;
   item: string;
   children?: React.ReactNode;
@@ -64,12 +64,12 @@ export const Menu = ({
   setActive,
   children,
 }: {
-  setActive: () => void;
+  setActive: (active: string | null) => void;
   children: React.ReactNode;
 }) => {
   return (
     <nav
-      onMouseLeave={() => setActive()} 
+      onMouseLeave={() => setActive(null)}
       className="relative rounded-full border border-transparent dark:bg-black dark:border-white/[0.2] bg-white shadow-input flex justify-between space-x-4 px-8 py-6 "
     >
       {children}

@@ -41,6 +41,7 @@ const HomeBanner = () => {
                                 alt={image}
                                 width={1097}
                                 height={860}
+                                priority={false}
                               />
                               <div className="absolute h-full w-[287px] left-[-114px] top-0 bottom-0 bg-gradient-to-r from-gradientColorOne to-transparent z-10"></div>
                             </div>
