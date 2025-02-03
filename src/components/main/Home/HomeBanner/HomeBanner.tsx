@@ -28,7 +28,7 @@ const HomeBanner = () => {
           <div>
             <Carousel>
               <CarouselContent>
-                {data.map((image: string, index: number) => {
+                {data?.map((image: string, index: number) => {
                   return (
                     <CarouselItem key={index}>
                       <div>

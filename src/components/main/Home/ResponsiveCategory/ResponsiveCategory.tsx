@@ -51,8 +51,8 @@ const ResponsiveCategory = () => {
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 				{products.map((product, index) => {
 					return (
-						<>
-							<Link href={product.link}>
+						
+							<Link href={product.link} key={index}>
 								<div key={index} className="relative cursor-pointer">
 									<Image
 										src={product.imageUrl}
@@ -67,7 +67,7 @@ const ResponsiveCategory = () => {
 									</div>
 								</div>
 							</Link>
-						</>
+						
 					);
 				})}
 			</div>

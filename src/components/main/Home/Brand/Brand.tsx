@@ -1,15 +1,17 @@
-"use client";
 
-import React from "react";
-import ProductCard from "./ProductCard";
-import { ProductDetails } from "@/types";
+import { prisma } from "../../../../../prisma/client";
+import ProductCard from "./BrandCard";
 
-
-interface CategoryProps {
-  brandsWithImages: ProductDetails[];
+export interface ProductDetails {
+  name: string;
+  imageUrl: string;
+  link: string;
 }
 
-const Category: React.FC<CategoryProps> = ({ brandsWithImages }) => {
+const Brand = async () => {
+  const brandData = await prisma.brand.findMany();
+  console.log(brandData);
+
   return (
     <div className="container max-auto max-w-6xl">
       <div className="flex justify-center lg:justify-start items-center py-10">
@@ -18,12 +20,12 @@ const Category: React.FC<CategoryProps> = ({ brandsWithImages }) => {
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {brandsWithImages?.map((brand) => (
+        {brandData.map((brand) => (
           <ProductCard
             key={brand.id}
             name={brand.name}
             link={`/brands/${brand.id}`}
-            imageUrl={brand.imageUrl}
+            imageUrl={brand.image ?? 'https://res.cloudinary.com/dkvqtc5pb/image/upload/v1737433308/products/1737433306032-taherul.PNG.png'}
           />
         ))}
       </div>
@@ -31,4 +33,4 @@ const Category: React.FC<CategoryProps> = ({ brandsWithImages }) => {
   );
 };
 
-export default Category;
+export default Brand;
