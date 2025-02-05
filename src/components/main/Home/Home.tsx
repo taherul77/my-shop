@@ -5,23 +5,7 @@ import ResponsiveHomePage from "./HomeBanner/ResponsiveHomePage";
 import Category from "./Category/Category";
 import ResponsiveCategory from "./ResponsiveCategory/ResponsiveCategory";
 import Brand from "./Brand/Brand";
-
-import { GetServerSideProps } from "next";
-import { fetchBrandData } from "@/lib/fetchBrandData";
-import { ProductDetails } from "@/types";
-export const getServerSideProps: GetServerSideProps = async () => {
-  const brandsWithImages = await fetchBrandData();
-  return {
-    props: {
-      brandsWithImages,
-    },
-  };
-};
-
-
-
-
-const Home = ({ brandsWithImages }: { brandsWithImages: ProductDetails[] }) => {
+const Home = () => {
   return (
     <>
       <div className="flex flex-col ">
@@ -35,7 +19,7 @@ const Home = ({ brandsWithImages }: { brandsWithImages: ProductDetails[] }) => {
           <Brand />
         </div>
         <div className="hidden lg:block  py-10">
-        <Category brandsWithImages={brandsWithImages} />
+          <Category />
         </div>
 
         <div className="lg:hidden md:block">
